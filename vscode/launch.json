@@ -1,0 +1,20 @@
+{
+    "version": "0.2.0",
+    "configurations": [
+        {
+            "name": "Deno",
+            "type": "node",
+            "request": "launch",
+            "cwd": "${workspaceFolder}",
+            "runtimeExecutable": "deno",
+            "runtimeArgs": ["run", "${file}", "${input:arguments}"]
+        }
+    ],
+    "inputs":[
+        {
+            "id": "arguments",
+            "type": "promptString",
+            "description": "Enter additional arguments"
+        }
+    ]
+}
