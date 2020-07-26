@@ -10,6 +10,7 @@
 
 function tellAboutFamily(aFamily) {
 
+    console.log("end of report");
 }
 
 let family = [
