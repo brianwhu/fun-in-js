@@ -18,6 +18,24 @@ var Playground = {
         }
     },
 
+    ToggleLibrary(id) {
+/*
+        let library = document.getElementById(id);
+        if (library.classList.contains('d-none')) {
+            library.classList.remove('d-none');
+            library.classList.add('d-block');
+        } else {
+            library.classList.remove('d-block');
+            library.classList.add('d-none');
+        }
+        if (event.srcElement.innerHTML === 'first_page') {
+            event.srcElement.innerHTML = 'last_page';
+        } else {
+            event.srcElement.innerHTML = 'first_page';
+        }
+*/
+    },
+
     useButton(id, label, handler) {
         let button = document.getElementById(id);
         button.innerHTML = label;
