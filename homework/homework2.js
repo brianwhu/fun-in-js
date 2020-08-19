@@ -17,4 +17,7 @@ let reportBig3 = function(array) {
 }
 
 let data = Array.from({length: 18}, () => Math.floor(Math.random() * 128));
-console.log(`Original array is ${data}`)
+console.log(`Original array is ${data}`);
+
+reportBig3(data);
+
