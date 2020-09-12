@@ -1,8 +1,8 @@
 class BinaryTree {
     constructor(data, left, right) {
         this.data = data;   // data
-        this.left = left;   // BinaryTree
-        this.right = right; // BinaryTree
+        this.left = left || null;   // BinaryTree
+        this.right = right || null; // BinaryTree
     }
   
     // tells whether this node is a leaf or not
@@ -34,6 +34,13 @@ class BinaryTree {
             this.right.preorderVisit(visitor);
         }
     }
+}
+
+class ExpressionTree extends BinaryTree {
+    evaluate() {
+        
+    }
+
 }
 
 export {

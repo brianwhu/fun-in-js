@@ -16,6 +16,9 @@ import { BinaryTree } from "../BinaryTree.js"
  *
  *  Represents
  *
+ *      6 / 2
+ *      (4 + 2) / 2
+ *      (8 - (4 + 2)) / 2
  *      (2 * (3 + (6 / 2))) / 4
  * 
  *  Not allowed: 1 + 2 + 3, 4 * 6 / 3
@@ -24,12 +27,25 @@ import { BinaryTree } from "../BinaryTree.js"
  * @param expression - a BinaryTree that represents a mathematical expression
  */
 let evaluate = function(expression) {
-    let result = 0;
+    if (expression.isLeaf()) { // terminal case
+        return expression.data;
+    } else {
+        let leftResult = evaluate(expression.left); // recursion, adj. recursive
+        let rightResult = evaluate(expression.right); // recursion
 
-    // evaluation the expression tree
-    // place result in variable 'result'
-
-    return result;
+        switch(expression.data) {
+        case "+":
+            return leftResult + rightResult;
+        case "-":
+            return leftResult - rightResult;
+        case "*":
+            return leftResult * rightResult;
+        case "/":
+            return leftResult / rightResult;
+        default: // never happens
+            return 0;
+        }
+    }
 }
 
 let two1 = new BinaryTree(2, null, null);

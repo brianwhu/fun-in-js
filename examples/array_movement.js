@@ -114,7 +114,7 @@ let insertionSort = function(array) {
 
 
 let bindarySearch = function(array, item) {
-    return bindarySearch2(array, 0, array.length - 1, item);
+    return bindarySearch2(array, 0, array.length, item);
 }
 
 // advanced
