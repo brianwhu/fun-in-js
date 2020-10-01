@@ -36,13 +36,6 @@ class BinaryTree {
     }
 }
 
-class ExpressionTree extends BinaryTree {
-    evaluate() {
-        
-    }
-
-}
-
 export {
     BinaryTree
 }
