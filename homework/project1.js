@@ -46,15 +46,30 @@ import { BinaryTree } from "../BinaryTree.js"
  * 
  * Hint: use recursion!
  */
-let buildOrderedTree = function(array) {
+let buildOrderedTree = function(data) {
+    // sort array
+    data = data.sort((a, b) => a - b);
+    console.log(`Sorted array is ${data}`);
 
-    //return ...;
+    // build the tree
+    return _buildOrderedTree(data, 0, data.length);
 }
 
+// private/helper
+// build a ordered tree from elements in the sorted array from first inclusive to last exclusive
+//  [ first, last)
+//  first <= index < last
+let _buildOrderedTree = function(array, first, last) {
+    if (first >= last) {
+        return null;
+    }
+    let middle = Math.floor((first + last)/2);
+    return new BinaryTree(array[middle], _buildOrderedTree(array, first, middle), _buildOrderedTree(array, middle + 1, last));
+}
 
 /// TESTING /////////////////////
 
-let data = Array.from({length: 7}, () => Math.floor(Math.random() * 128));
+let data = Array.from({length: 8}, () => Math.floor(Math.random() * 128));
 console.log(`Original array is ${data}`);
 
 let tree = buildOrderedTree(data);
