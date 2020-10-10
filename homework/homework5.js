@@ -19,7 +19,20 @@
  * @param n - a given integer that is > 0
  */
 let multiplicationTable = function(n) {
+    for (let i = 1; i <= n; ++i) { // vertical
+        console.log("===");
+        let line = ""; // initialization
+        for (let j = 1; j <= i; ++j) {
+            if (j == i) { // last one
+                line = line + `${j} x ${i} = ${j*i}`;
+            } else {
+                line = line + `${j} x ${i} = ${j*i}    `;
+            }
 
+        }
+        // here
+        console.log(line);
+    }
 }
 
 
@@ -36,6 +49,7 @@ let multiplicationTable = function(n) {
 let digits = function(n) {
     let result = [];
 
+    // suggestions: read about Javascript Math object
     // compute the digits in n and store them in results
 
     return result;
