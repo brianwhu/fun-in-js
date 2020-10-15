@@ -52,8 +52,26 @@ let digits = function(n) {
     // suggestions: read about Javascript Math object
     // compute the digits in n and store them in results
 
+    // 1. find an initial divider (10000)
+    let divider = 10;
+    while (divider <= n) {
+        divider *= 10;
+    }
+    divider /= 10; // divider = divider / 10;
+    //console.log(divider);
+
+    // 2. use the divider and repeat till we get all digits of number n
+    while (divider > 0) {
+        let digit = Math.floor(n / divider);
+        result.push(digit);
+        n = n % divider;
+        divider = Math.floor(divider / 10);
+    }
+
     return result;
 }
+
+
 
 /////////////////////////////////////////////////////
 
@@ -63,7 +81,7 @@ multiplicationTable(max);
 
 console.log("==========================");
 
-let num = 10000 + Math.floor(Math.random() * 10000);
+let num = 10 + Math.floor(Math.random() * 1000000);
 console.log(`Digits of number ${num} are:`);
 let result = digits(num);
 console.log(`${result}`);
