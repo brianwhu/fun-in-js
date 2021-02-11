@@ -2,6 +2,11 @@
  * Playground helps manage the page
  */
 var Playground = {
+    BLUE_BUTTON: "blue",
+    GREEN_BUTTON: "green",
+    CYAN_BUTTON: "cyan",
+    BLACK_BUTTON: "black",
+
     TogglePanel(id) {
         let panel = document.getElementById(id);
         if (panel.classList.contains('d-none')) {
@@ -36,14 +41,21 @@ var Playground = {
 */
     },
 
-    useButton(id, label, handler) {
+    /**
+     * Enable a button with the giving label and click handler.
+     * 
+     * @param {*} id 
+     * @param {*} label 
+     * @param {*} handler 
+     */
+    UseButton(id, label, handler) {
         let button = document.getElementById(id);
         button.innerHTML = label;
         button.removeAttribute("disabled");
         button.addEventListener('click', handler);
     },
 
-    useKeyboard(handler) {
+    UseKeyboard(handler) {
         document.getElementById("drawing").addEventListener('keydown', handler);
     }
 }

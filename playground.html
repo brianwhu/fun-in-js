@@ -15,7 +15,7 @@
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js" integrity="sha384-OgVRvuATP1z7JjHLkuOU7Xw704+h835Lr+6QL9UvYjZE3Ipu6Tp75j7Bh/kR0JKI" crossorigin="anonymous"></script>
 
   <!-- Google Fonts -->
-  <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/icon?family=Material+Icons|Material+Icons+Outlined" rel="stylesheet">
   <!-- D3 -->
   <script src="https://d3js.org/d3.v5.min.js"></script>
 
@@ -70,11 +70,11 @@
             </div>
           </li>
 
-<!--
-          <li class="nav-item">
-            <a class="nav-link" href="#"><img src="../icon/settings.svg"> Settings</a>
+          <li class="nav-item" id="navbar-settings">
+            <a class="nav-link" href="#" data-toggle="modal" data-target="#modal-settings-shell">
+              <i class="material-icons text-primary align-middle">settings</i> Settings
+            </a>
           </li>
--->
         </ul>
         <!--
         <form class="form-inline my-2 my-lg-0">
@@ -106,7 +106,7 @@
 
   <div class="row">
 
-    <div class="col-3" id="settings">
+    <div class="col-3 d-none" id="settings">
       <div class="card h-100">
         <div class="card-body">
           <div class="card-title" id="settings-heading">Settings</div>
@@ -127,9 +127,13 @@
       <div class="card" id="drawing" tabindex="0">
         <div class="card-body">
           <div class="card-title row">
-            <div class="col-1 text-left"><a class="material-icons knob left bg-secondary text-white" href="#" onclick="Playground.TogglePanel('settings')" id="toggle-left">first_page</a></div>
-            <div class="col text-center" id="settings-heading">Playground</div>
-            <div class="col-1 text-right"><a class="material-icons knob right bg-secondary text-white" href="#" onclick="Playground.TogglePanel('display')" id="toggle-right">last_page</a></div>
+            <div class="col-1 text-left d-none" id="settings-knob">
+              <a class="material-icons knob left bg-info text-white" href="#" onclick="Playground.TogglePanel('settings')" id="toggle-left">first_page</a>
+            </div>
+            <div class="col text-center" id="drawing-heading">Playground</div>
+            <div class="col-1 text-right d-none" id="display-knob">
+              <a class="material-icons knob right bg-info text-white" href="#" onclick="Playground.TogglePanel('display')" id="toggle-right">last_page</a>
+            </div>
           </div>
           <svg id="svg" viewBox="0 0 1600 900" style="width:100%;border:1px solid #c3c3c3;background-color:white"></svg> 
         </div>
@@ -145,7 +149,8 @@
         </div>
       </div>
     </div>
-    <div class="col-3" id="display">
+
+    <div class="col-3 d-none" id="display">
       <div class="card h-100">
         <div class="card-body">
           <div class="card-title" id="display-heading">Display</div>
@@ -157,8 +162,32 @@
   </div>
 </div>
 
+
+
+<!-- Modal -->
+<div class="modal fade" id="modal-settings-shell" tabindex="-1" role="dialog" aria-labelledby="modal-settings-title" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="modal-settings-title"><i class="material-icons text-primary align-middle">settings</i> Settings</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        ...
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+        <button type="button" class="btn btn-primary">Save changes</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+
 <!--
-<script type="module" src="/programming/index.js"></script>
+<script type="module" src="/x/programming/index.js"></script>
 -->
 <script type="text/javascript">
   let search = window.location.search;
@@ -171,7 +200,7 @@
   if (params.p) {
     let module = document.createElement('script');
     module.setAttribute("type", "module");
-    document.body.appendChild(module).src = `/programming/projects/${params.p}.js`;
+    document.body.appendChild(module).src = `/x/programming/fun-in-js/projects/${params.p}.js`;
   }
 </script>
 </body>

@@ -10,7 +10,6 @@ class Panel {
     clear() {
         while (this.content.children.length) this.content.children.item(0).remove();
         this.heading.innerHTML = "&nbsp;";
-        //this.panel.classList.remove("show");
         this.panel.classList.remove("d-block");
         this.panel.classList.add("d-none");
     }
@@ -18,7 +17,6 @@ class Panel {
     build(heading) {
         this.panel.classList.remove("d-none");
         this.panel.classList.add("d-block");
-        //this.panel.classList.add("show");
         this.heading.innerHTML = heading;
     }
 }

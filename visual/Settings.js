@@ -1,10 +1,13 @@
 import { Panel } from "./Panel.js";
+import { Knob } from "./Knob.js";
 
 class Settings {
 
     /**
      * @param heading A string heading of the settings panel
      * @param args A hash containing expected user input.
+     * @param submit A data submission handler.
+     *
      *      E.g.
      *      let settings = {
      *          name: {
@@ -45,6 +48,7 @@ class Settings {
         let settings = new Panel("settings");
         settings.clear();
         settings.build(heading);
+        new Knob("settings-knob").enable();
 
         let form = document.createElement("form");
         form.setAttribute("style", "height:100%");
