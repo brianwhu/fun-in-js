@@ -39,13 +39,13 @@
 </div>
 
 <script type="text/javascript">
-  let projects = [ "Samples", "ScalableVectorGraphics", "StarSpangledBanner", "MagicBubbles", "TicTacToe" ];
+  let projects = [ "Examples", "ConnectFour", "Samples", "ScalableVectorGraphics", "StarSpangledBanner", "MagicBubbles", "TicTacToe" ];
   let observers = projects.length;
   let completed = {};
 
   let list = document.getElementById('list');
   projects.forEach(project => {
-    let source = `../projects/${project}.js`;
+    let source = `projects/${project}.js`;
     fetch(source).then(response => {
       completed[project] = response.ok;
       --observers;

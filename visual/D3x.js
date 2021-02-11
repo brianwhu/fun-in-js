@@ -16,7 +16,12 @@ class D3ShapeSeries {
     this.pclass = shape + Math.round(Math.random() * 1000000);
   }
 
-  attribute(n) {
+  text(contents) {
+    this.contents = contents;
+    return this;
+  }
+
+  _kebab(n) {
     return n.replace(/([a-z])([A-Z])/g, (m, l, u) => [l, u.toLowerCase()].join('-'));
   }
 
@@ -25,8 +30,9 @@ class D3ShapeSeries {
    */
   refresh(data) {
     let elements = d3.select(this.selector).selectAll('.' + this.pclass).data(data).join(enter => enter.append(this.shape)).classed(this.pclass, true);
-    Object.keys(this.attributes).forEach(name => elements.attr(this.attribute(name), this.attributes[name]));
-    if (this.handlers) Object.keys(this.handlers).forEach(name => elements.on(this.attribute(name), this.handlers[name]));
+    Object.keys(this.attributes).forEach(name => elements.attr(this._kebab(name), this.attributes[name]));
+    if (this.contents) elements.text(this.contents);
+    if (this.handlers) Object.keys(this.handlers).forEach(name => elements.on(this._kebab(name), this.handlers[name]));
   }
 }
 
