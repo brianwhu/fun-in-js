@@ -2,8 +2,12 @@ import { D3x } from "../visual/D3x.js";
 import { RegularPolygon } from "../visual/RegularPolygon.js";
 import { Settings } from "../visual/Settings.js";
 import { DisplayPanel } from "../visual/DisplayPanel.js";
+import { GameSpace } from "./tetris_modules/GameSpace.js";
 
 
+let gameSpace = new GameSpace(10, 20);
+
+console.log(gameSpace);
 
 
 let drawing = document.getElementById("drawing");
