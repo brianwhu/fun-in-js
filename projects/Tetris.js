@@ -1,33 +1,53 @@
+/*
 import { D3x } from "../visual/D3x.js";
 import { RegularPolygon } from "../visual/RegularPolygon.js";
-import { Settings } from "../visual/Settings.js";
 import { DisplayPanel } from "../visual/DisplayPanel.js";
+import { SettingsModal } from "../visual/SettingsModal.js";
+import * as Backgrounds from "../visual/Backgrounds.js";
+*/
 import { GameSpace } from "./tetris_modules/GameSpace.js";
+import { PieceForcast } from "./tetris_modules/PieceForcast.js";
 
+//Playground.SetBackground(Backgrounds.ProtrudingSquares);
 
-let gameSpace = new GameSpace(10, 20);
+const DISPLAY_MARGIN = 30;
+const DISPLAY_SPACING = 2;
 
+let gameSpace = new GameSpace(20, 10, DISPLAY_MARGIN, DISPLAY_SPACING);
+let forecast = new PieceForcast(
+  gameSpace.xMargin + gameSpace.width,
+  gameSpace.yMargin,
+  DISPLAY_SPACING,
+  gameSpace.gridSize
+);
 console.log(gameSpace);
+console.log(forecast);
+
+gameSpace.update();
+forecast.update();
 
 
-let drawing = document.getElementById("drawing");
-drawing.addEventListener('keydown', function(event) {
+/*
+Playground.UseKeyboard(event => {
   console.log(event.key);
   switch (event.key) {
   case "ArrowLeft":
     console.log('LEFT');
     break;
   case "ArrowUp":
-    console.log('UP');
+    console.log('PAUSE');
     break;
   case "ArrowRight":
     console.log('RIGHT');
     break;
   case "ArrowDown":
-    console.log('DOWN');
+    console.log('DROP');
+    break;
+  case "Clear":
+    console.log('ROTATE');
     break;
   default:
     break;
   }
 });
-
+*/

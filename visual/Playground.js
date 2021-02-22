@@ -57,6 +57,16 @@ var Playground = {
 
     UseKeyboard(handler) {
         document.getElementById("drawing").addEventListener('keydown', handler);
+    },
+
+    LoadPrelog(url) {
+        d3.xml(url).then(data => {
+            d3.select("#svg").select("#svg-prelog").node().append(data.documentElement)
+        });
+    },
+
+    SetBackground(text) {
+        document.getElementById("svg").style.setProperty("background", text);
     }
 }
 

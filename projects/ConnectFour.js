@@ -1,7 +1,4 @@
-import { D3x, D3ShapeSeries } from "../visual/D3x.js";
-import { RegularPolygon } from "../visual/RegularPolygon.js";
-import { Settings } from "../visual/Settings.js";
-import { DisplayPanel } from "../visual/DisplayPanel.js";
+import { D3x } from "../visual/D3x.js";
 
 // D3x is a manager of a series of similar shapes which are controlled by a data array
 
@@ -44,7 +41,7 @@ class GameFrame {
     // the highest position is (x, 0)
     // the lowest postion is (x, FRAME_ROWS - 1)
     let y = 0; // variable scope
-    for (y = 0; y < FRAME_ROWS; ++y) {
+    for (; y < FRAME_ROWS; ++y) {
       // check the color at (x, y)
       if (this.getColor(x, y) === 'white') {
         // continue to the next
