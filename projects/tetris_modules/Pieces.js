@@ -24,6 +24,13 @@ class Piece {
     }
 
     /**
+     * Returns the original/first shape as an array of points
+     */
+    getOriginal() {
+        return this.shapes[0];
+    }
+
+    /**
      * Goes to the next shape
      */
     next() {
@@ -68,8 +75,40 @@ const J = new Piece('red', 3, [
     [ {x: 0, y: 0}, {x: 0, y: 1}, {x: 1, y: 1}, {x: 2, y: 1} ]
 ]);
 
+const L = new Piece('red', 3, [
+    [ {x: 1, y: 0}, {x: 1, y: 1}, {x: 1, y: 2}, {x: 2, y: 2} ],
+    [ {x: 0, y: 1}, {x: 1, y: 1}, {x: 2, y: 1}, {x: 2, y: 0} ],
+    [ {x: 0, y: 0}, {x: 1, y: 0}, {x: 1, y: 1}, {x: 1, y: 2} ],
+    [ {x: 0, y: 2}, {x: 0, y: 1}, {x: 1, y: 1}, {x: 2, y: 1} ]
+]);
+
+const T = new Piece('red', 3, [
+    [ {x: 0, y: 1}, {x: 1, y: 1}, {x: 2, y: 1}, {x: 1, y: 2} ],
+    [ {x: 1, y: 0}, {x: 1, y: 1}, {x: 2, y: 1}, {x: 1, y: 2} ],
+    [ {x: 1, y: 0}, {x: 0, y: 1}, {x: 1, y: 1}, {x: 2, y: 1} ],
+    [ {x: 1, y: 0}, {x: 0, y: 1}, {x: 1, y: 1}, {x: 1, y: 2} ]
+]);
+
+const S = new Piece('red', 3, [
+    [ {x: 1, y: 1}, {x: 2, y: 1}, {x: 0, y: 2}, {x: 1, y: 2} ],
+    [ {x: 1, y: 0}, {x: 1, y: 1}, {x: 2, y: 1}, {x: 2, y: 2} ]
+]);
+
+const Z = new Piece('red', 3, [
+    [ {x: 0, y: 1}, {x: 1, y: 1}, {x: 1, y: 2}, {x: 2, y: 2} ],
+    [ {x: 1, y: 1}, {x: 1, y: 2}, {x: 2, y: 0}, {x: 2, y: 1} ]
+]);
+
+const I = new Piece('red', 4, [
+    [ {x: 0, y: 2}, {x: 1, y: 2}, {x: 2, y: 2}, {x: 3, y: 2} ],
+    [ {x: 2, y: 0}, {x: 2, y: 1}, {x: 2, y: 2}, {x: 2, y: 3} ]
+]);
+
+const O = new Piece('red', 2, [
+    [ {x: 0, y: 0}, {x: 0, y: 1}, {x: 1, y: 0}, {x: 1, y: 1} ]
+]);
+
 export {
     Piece,
-    J
+    J, L, T, S, Z, I, O
 }
-

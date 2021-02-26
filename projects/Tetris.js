@@ -20,11 +20,14 @@ let forecast = new PieceForcast(
   DISPLAY_SPACING,
   gameSpace.gridSize
 );
+
+// testing code
 console.log(gameSpace);
 console.log(forecast);
 
-gameSpace.update();
-forecast.update();
+// testing code
+gameSpace.repaint();
+forecast.repaint();
 
 
 /*

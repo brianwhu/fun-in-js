@@ -32,7 +32,10 @@ class GameSpace {
         });
     }
 
-    update() {
+    /**
+     * Repaints the display area with the most recent changes in the data
+     */
+    repaint() {
         this.d3x.refresh(this.array2d.get());
     }
 }

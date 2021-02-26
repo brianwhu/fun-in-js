@@ -1,5 +1,6 @@
 import { D3x } from "../../visual/D3x.js";
 import { Array2D } from "./Helpers.js";
+import { Piece } from "./Pieces.js"
 
 class PieceForcast {
     constructor(forecastXEdge, forecastYMargin, spacing, gridSize) {
@@ -14,7 +15,6 @@ class PieceForcast {
         this.forecastYMargin = forecastYMargin;
         this.spacing = spacing;
         this.gridSize = gridSize;
-
 
         this.titleBox = new D3x('rect', {
             x: forecastXEdge + this.forecastXMargin,
@@ -44,9 +44,27 @@ class PieceForcast {
             width: this.gridSize,
             height: this.gridSize,
         });
+
+        this.piece = null;
     }
 
-    update() {
+    /**
+     * Updates the display with a new piece.
+     * 
+     * @param {Piece} piece - the new piece
+     */
+    update(piece) {
+        this.piece = piece;
+        let margin = Math.ceil((this.displaySizeInGrid - piece.size) / 2);
+
+        // copy the shape to my array2d
+        this.array2d.set(this.piece.getOriginal(), margin, margin, this.piece.color);
+    }
+
+    /**
+     * Repaints the display area with the most recent changes in the data
+     */
+    repaint() {
         this.titleBox.refresh([ 0 ]);
         this.titleText.refresh([ 0 ]);
         this.display.refresh(this.array2d.get());
