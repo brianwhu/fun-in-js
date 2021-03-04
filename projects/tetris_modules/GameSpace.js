@@ -30,6 +30,9 @@ class GameSpace {
             x: (d, i) => this.xMargin + (this.gridSize + this.spacing) * this.array2d.getX(i),
             y: (d, i) => this.yMargin + (this.gridSize + this.spacing) * this.array2d.getY(i),
         });
+
+        this.pieceX = 0;
+        this.pieceY = 0;
     }
 
     /**
@@ -37,6 +40,19 @@ class GameSpace {
      */
     repaint() {
         this.d3x.refresh(this.array2d.get());
+    }
+
+    /**
+     * Drops a new piece into this GameSpace so that it starts to fall.
+     * 
+     * Horizontally, the piece starts at the center; Vertically, the piece is first placed at
+     * the top.
+     * 
+     * @param {Piece} piece 
+     */
+    drop(piece) {
+        this.pieceY = 0;
+        this.pieceX = Math.ceil((this.columns - piece.size) / 2);
     }
 }
 

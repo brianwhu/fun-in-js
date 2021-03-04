@@ -4,7 +4,7 @@ import { Piece } from "./Pieces.js"
 
 class PieceForcast {
     constructor(forecastXEdge, forecastYMargin, spacing, gridSize) {
-        this.displaySizeInGrid = 6;
+        this.displaySizeInGrid = 9;
         this.titleHeight = 80; // pixels
         this.titleFontSize = 64;
         this.titleDisplayGap = 40;
@@ -43,6 +43,8 @@ class PieceForcast {
             y: (d, i) => displayY + (this.gridSize + this.spacing) * this.array2d.getY(i),
             width: this.gridSize,
             height: this.gridSize,
+            stroke: "grey",
+            fill: d => d
         });
 
         this.piece = null;
@@ -54,11 +56,12 @@ class PieceForcast {
      * @param {Piece} piece - the new piece
      */
     update(piece) {
+        // if we already have a piece in display, erase it
+        if (this.piece) {
+            this._paint(false);
+        }
         this.piece = piece;
-        let margin = Math.ceil((this.displaySizeInGrid - piece.size) / 2);
-
-        // copy the shape to my array2d
-        this.array2d.set(this.piece.getOriginal(), margin, margin, this.piece.color);
+        this._paint(true);
     }
 
     /**
@@ -69,6 +72,22 @@ class PieceForcast {
         this.titleText.refresh([ 0 ]);
         this.display.refresh(this.array2d.get());
     }
+
+    /*!
+     * Paint the piece.
+     * 
+     * Examples:
+     *  _paint(true) - draw the piece
+     *  _paint(false) - erase the piece
+     * 
+     * @param {boolean} paint - if true, paint the piece; otherwise erase the piece
+     */
+    _paint(paint) {
+        let margin = Math.ceil((this.displaySizeInGrid - this.piece.size) / 2);
+        // copy the shape to my array2d
+        this.array2d.set(this.piece.getOriginal(), margin, margin, paint ? this.piece.color : undefined);
+    }
+
 }
 
 export {

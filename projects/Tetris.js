@@ -7,6 +7,7 @@ import * as Backgrounds from "../visual/Backgrounds.js";
 */
 import { GameSpace } from "./tetris_modules/GameSpace.js";
 import { PieceForcast } from "./tetris_modules/PieceForcast.js";
+import { J, L, S, T, Z, I, O } from "./tetris_modules/Pieces.js"
 
 //Playground.SetBackground(Backgrounds.ProtrudingSquares);
 
@@ -23,10 +24,15 @@ let forecast = new PieceForcast(
 
 // testing code
 console.log(gameSpace);
-console.log(forecast);
 
 // testing code
 gameSpace.repaint();
+
+forecast.update(O);
+console.log(forecast);
+forecast.repaint();
+
+forecast.update(J);
 forecast.repaint();
 
 

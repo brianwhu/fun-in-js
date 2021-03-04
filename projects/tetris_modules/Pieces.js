@@ -68,33 +68,33 @@ class Piece {
     }
 }
 
-const J = new Piece('red', 3, [
+const J = new Piece('white', 3, [
     [ {x: 1, y: 0}, {x: 1, y: 1}, {x: 1, y: 2}, {x: 0, y: 2} ],
     [ {x: 0, y: 1}, {x: 1, y: 1}, {x: 2, y: 1}, {x: 2, y: 2} ],
     [ {x: 2, y: 0}, {x: 1, y: 0}, {x: 1, y: 1}, {x: 1, y: 2} ],
     [ {x: 0, y: 0}, {x: 0, y: 1}, {x: 1, y: 1}, {x: 2, y: 1} ]
 ]);
 
-const L = new Piece('red', 3, [
+const L = new Piece('magenta', 3, [
     [ {x: 1, y: 0}, {x: 1, y: 1}, {x: 1, y: 2}, {x: 2, y: 2} ],
     [ {x: 0, y: 1}, {x: 1, y: 1}, {x: 2, y: 1}, {x: 2, y: 0} ],
     [ {x: 0, y: 0}, {x: 1, y: 0}, {x: 1, y: 1}, {x: 1, y: 2} ],
     [ {x: 0, y: 2}, {x: 0, y: 1}, {x: 1, y: 1}, {x: 2, y: 1} ]
 ]);
 
-const T = new Piece('red', 3, [
+const T = new Piece('brown', 3, [
     [ {x: 0, y: 1}, {x: 1, y: 1}, {x: 2, y: 1}, {x: 1, y: 2} ],
     [ {x: 1, y: 0}, {x: 1, y: 1}, {x: 2, y: 1}, {x: 1, y: 2} ],
     [ {x: 1, y: 0}, {x: 0, y: 1}, {x: 1, y: 1}, {x: 2, y: 1} ],
     [ {x: 1, y: 0}, {x: 0, y: 1}, {x: 1, y: 1}, {x: 1, y: 2} ]
 ]);
 
-const S = new Piece('red', 3, [
+const S = new Piece('green', 3, [
     [ {x: 1, y: 1}, {x: 2, y: 1}, {x: 0, y: 2}, {x: 1, y: 2} ],
     [ {x: 1, y: 0}, {x: 1, y: 1}, {x: 2, y: 1}, {x: 2, y: 2} ]
 ]);
 
-const Z = new Piece('red', 3, [
+const Z = new Piece('cyan', 3, [
     [ {x: 0, y: 1}, {x: 1, y: 1}, {x: 1, y: 2}, {x: 2, y: 2} ],
     [ {x: 1, y: 1}, {x: 1, y: 2}, {x: 2, y: 0}, {x: 2, y: 1} ]
 ]);
@@ -104,7 +104,7 @@ const I = new Piece('red', 4, [
     [ {x: 2, y: 0}, {x: 2, y: 1}, {x: 2, y: 2}, {x: 2, y: 3} ]
 ]);
 
-const O = new Piece('red', 2, [
+const O = new Piece('blue', 2, [
     [ {x: 0, y: 0}, {x: 0, y: 1}, {x: 1, y: 0}, {x: 1, y: 1} ]
 ]);
 

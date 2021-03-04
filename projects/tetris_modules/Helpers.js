@@ -59,7 +59,11 @@ class Array2D {
   }
 
   /**
-   * Updates the array with the given array of coordinates and value
+   * Sets some array elements to a value using the given array of coordinates
+   * 
+   * Assign a given value to some specific array eleements
+   * 
+   *  array[?] = value
    *
    * @param {Array} coords - an array of coordinates {x, y}
    * @param {number} xTranslate - the distance to translate the points in x direction
@@ -67,7 +71,14 @@ class Array2D {
    * @param {*} value - the value to set the array elements to
    */
   set(coords, xTranslate, yTranslate, value) {
-
+    for (let i = 0; i < coords.length; ++i) {
+      // place the ith grid in coords on the array
+      // coords[i]: {x, y}
+      let xInTheBiggerArray = xTranslate + coords[i].x;
+      let yInTheBiggerArray = yTranslate + coords[i].y;
+      let indexIntoArray = this.getIndex(xInTheBiggerArray, yInTheBiggerArray);
+      this.array[indexIntoArray] = value;
+    }
   }
 
   /**
@@ -75,14 +86,15 @@ class Array2D {
    * 
    * For development and unit test only.
    * 
-   * @param {Function} translator - a function that translates each array element into a String for display
+   * @param {Function} translator - a function, (d, i, a) => Strintg, that translates each array
+   * element into a String for display
    */
   log(translator) {
     for (let r = 0; r < this.rows; ++r) {
       let line = "";
       for (let c = 0; c < this.columns; ++c) {
         let index = this.getIndex(c, r);
-        line += translator(this.array[index], index);
+        line += translator(this.array[index], index, this.array);
       }
       console.log(line);
     }
