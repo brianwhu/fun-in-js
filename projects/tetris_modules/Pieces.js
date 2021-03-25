@@ -31,6 +31,12 @@ class Piece {
     }
 
     /**
+     * Returns the next shape but doesn't change the current shape.
+     */
+    peekNext() {
+        return this.shapes[(this.current + 1) % this.shapes.length];
+    }
+    /**
      * Goes to the next shape
      */
     next() {

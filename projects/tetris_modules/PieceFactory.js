@@ -1,11 +1,16 @@
+import { PieceForcast } from "./PieceForcast.js";
 import { J, L, T, S, Z, O, I } from "./Pieces.js";
 
-class PirceFactory {
+class PieceFactory {
     /**
-     * Constructs a PieceFactory. This constructor does not need any arguments.
+     * Constructs a PieceFactory.
+     * 
+     * @param {PieceForcast} - the PieceForecast object, which is to get updates from this factory.
      */
-    constructor() {
-
+    constructor(forecast) {
+        this.forecast = forecast;
+        this.next = this._manufacture();
+        this.forecast.update(this.next);
     }
 
     /**
@@ -16,6 +21,19 @@ class PirceFactory {
      * @returns a Piece
      */
     make() {
-        return null;
+        let current = this.next;
+        this.next = this._manufacture();
+        this.forecast.update(this.next);
+        return current;
     }
+
+
+    _manufacture() {
+        let pieces = [ J, L, T, S, Z, O, I ];
+        return pieces[Math.floor(Math.random() * pieces.length)];
+    }
+}
+
+export {
+    PieceFactory
 }

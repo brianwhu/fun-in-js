@@ -82,6 +82,49 @@ class Array2D {
   }
 
   /**
+   * Check if all elements at the given array of coordinates are undefined
+   * 
+   * @param {Array} coords - an array of coordinates {x, y}
+   * @param {number} xTranslate - the distance to translate the points in x direction
+   * @param {number} yTranslate - the distance to translate the points in y direction
+   * @return true if array elements at all coordinates are undefined; false otherwise
+   */
+  isUndefined(coords, xTranslate, yTranslate) {
+    for (let i = 0; i < coords.length; ++i) {
+      // place the ith grid in coords on the array
+      // coords[i]: {x, y}
+      let xInTheBiggerArray = xTranslate + coords[i].x;
+      let yInTheBiggerArray = yTranslate + coords[i].y;
+      let indexIntoArray = this.getIndex(xInTheBiggerArray, yInTheBiggerArray);
+      if (this.array[indexIntoArray] !== undefined) return false; 
+    }
+    return true;
+  }
+
+  /**
+   * Check if all coordinates are within the rectangular boundary
+   * 
+   * @param {Array} coords - an array of coordinates {x, y}
+   * @param {number} xTranslate - the distance to translate the points in x direction
+   * @param {number} yTranslate - the distance to translate the points in y direction
+   * @return true if array elements at all coordinates are undefined; false otherwise
+   */  
+  isInBoundary(coords, xTranslate, yTranslate) {
+    for (let i = 0; i < coords.length; ++i) {
+      // place the ith grid in coords on the array
+      // coords[i]: {x, y}
+      let xInTheBiggerArray = xTranslate + coords[i].x;
+      let yInTheBiggerArray = yTranslate + coords[i].y;
+      if (xInTheBiggerArray < 0) return false;
+      if (xInTheBiggerArray > this.columns - 1) return false;
+      if (yInTheBiggerArray < 0) return false;
+      if (yInTheBiggerArray > this.rows - 1) return false;
+    }
+    return true;
+  }
+
+
+  /**
    * Logs the 2D shape to the console.
    * 
    * For development and unit test only.

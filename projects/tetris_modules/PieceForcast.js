@@ -62,6 +62,7 @@ class PieceForcast {
         }
         this.piece = piece;
         this._paint(true);
+        this.repaint();
     }
 
     /**
