@@ -2,6 +2,7 @@ import { D3x } from "../../visual/D3x.js";
 import { Array2D, Geometry } from "./Helpers.js"
 import { PieceFactory } from "./PieceFactory.js"
 import { PieceForcast } from "./PieceForcast.js"
+import { ScoreDisplay } from "./ScoreDisplay.js"
 
 class GameSpace {
     /**
@@ -40,6 +41,8 @@ class GameSpace {
             this.gridSize
         );
         this.factory = new PieceFactory(this.forecast);
+        this.scores = new ScoreDisplay(this.forecast.forecastXMargin, this.forecast.forecastYMargin, this.forecast.displayWidth);
+
         this.pieceX = 0;
         this.pieceY = 0;
         this.piece = null;
@@ -97,6 +100,7 @@ class GameSpace {
 
                 // display new score
                 console.log(`Score: ${this.score}, Line Completed: ${this.completed}`);
+                this.scores.update(this.level, this.score, this.completed);
 
                 // get a new piece and drop into the game space
                 // if this is not possible, the game is over
@@ -195,8 +199,11 @@ class GameSpace {
 
             // start timer based on current game level
             this.state = 'ACTIVE';
+            this.level = 1; // may be modified by the player
             this.score = 0;
             this.completed = 0;
+            this.scores.update(this.level, this.score, this.completed);
+
             this.drop(this.factory.make());
             setTimeout(this.tick.bind(this), this.MAX_TICK_TIME/Math.sqrt(this.level));
             this.repaint();

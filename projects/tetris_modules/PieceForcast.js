@@ -9,9 +9,9 @@ class PieceForcast {
         this.titleFontSize = 64;
         this.titleDisplayGap = 40;
 
-        let displayWidth = gridSize * this.displaySizeInGrid + spacing * (this.displaySizeInGrid - 1);
+        this.displayWidth = gridSize * this.displaySizeInGrid + spacing * (this.displaySizeInGrid - 1);
         this.forecastXEdge = forecastXEdge;
-        this.forecastXMargin = (D3x.WIDTH - forecastXEdge - displayWidth) / 2;
+        this.forecastXMargin = (D3x.WIDTH - forecastXEdge - this.displayWidth) / 2;
         this.forecastYMargin = forecastYMargin;
         this.spacing = spacing;
         this.gridSize = gridSize;
@@ -19,7 +19,7 @@ class PieceForcast {
         this.titleBox = new D3x('rect', {
             x: forecastXEdge + this.forecastXMargin,
             y: forecastYMargin,
-            width: displayWidth,
+            width: this.displayWidth,
             height: this.titleHeight,
             fill: "black",
         });
@@ -30,7 +30,7 @@ class PieceForcast {
             fontSize: this.titleFontSize,
             textAnchor: 'middle',
             dominantBaseline: 'central',
-            x: forecastXEdge + this.forecastXMargin + displayWidth/2,
+            x: forecastXEdge + this.forecastXMargin + this.displayWidth/2,
             y: forecastYMargin + this.titleHeight/2,
           }).text('Next');
 

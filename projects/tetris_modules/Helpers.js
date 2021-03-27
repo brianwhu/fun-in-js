@@ -168,7 +168,20 @@ class Geometry {
   }
 }
 
+let Global = {
+  TitleHeight: 80,
+  TitleFontSize: 64,
+  TitleDisplayGap: 40,
+
+  DisplayFontSize: 48,
+
+  DisplayScoreY: 0.25,
+  DisplayLevelY: 0.45,
+  DisplayLinesY: 0.65,
+}
+
 export {
   Array2D,
-  Geometry
+  Geometry,
+  Global
 }
