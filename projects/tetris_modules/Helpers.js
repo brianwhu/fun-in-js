@@ -123,6 +123,14 @@ class Array2D {
     return true;
   }
 
+  /**
+   * Clear the contents in the array, setting all elements to undefined
+   */
+  clear() {
+    for (let i = 0; i < this.array.length; ++i) {
+      this.array[i] = undefined;
+    }
+  }
 
   /**
    * Logs the 2D shape to the console.
@@ -178,6 +186,19 @@ let Global = {
   DisplayScoreY: 0.25,
   DisplayLevelY: 0.45,
   DisplayLinesY: 0.65,
+  DisplaySpacing: 15,
+
+  DialogBackground: "black",
+  DialogBorder: "yellow",
+
+  DialogMessageTextColor: "yellow",
+  DialogMessagePosition: 0.4,
+  DialogMessageFontSize: 64,
+
+  DialogButtonPosition: 0.6,
+  DialogButtonColor: "green",
+  DialogButtonSize: 100,
+  DialogButtonFontSize: 48
 }
 
 export {

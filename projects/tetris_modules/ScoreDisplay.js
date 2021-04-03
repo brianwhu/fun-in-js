@@ -32,21 +32,38 @@ class ScoreDisplay {
             height: this.displaySize,
             fill: "black",
         });
+
+        // Score, Level, and Lines display: labels
         this.displayText = new D3x('text', {
             fill: 'yellow',
             stroke: 'none',
             fontFamily: 'Centaur',
             fontSize: Global.DisplayFontSize,
-            textAnchor: 'middle',
+            textAnchor: 'end',
             dominantBaseline: 'central',
-            x: this.xMargin + this.displaySize/2,
+            x: this.xMargin + this.displaySize/2 - Global.DisplaySpacing,
             y: d => this.yMargin + Global.TitleHeight + Global.TitleDisplayGap + this.displaySize * d.y,
         }).text(
             d => d.text
         );
 
+        // Score, Level, and Lines display: numbers
+        this.displayNumbers = new D3x('text', {
+            fill: 'green',
+            stroke: 'none',
+            fontFamily: 'Centaur',
+            fontSize: Global.DisplayFontSize,
+            textAnchor: 'start',
+            dominantBaseline: 'central',
+            x: this.xMargin + this.displaySize/2 + Global.DisplaySpacing,
+            y: d => this.yMargin + Global.TitleHeight + Global.TitleDisplayGap + this.displaySize * d.y,
+        }).text(
+            d => d.data
+        );
 
         this.score = 0;
+        this.level = 1;
+        this.lines = 0;
     }
 
     /**
@@ -58,6 +75,9 @@ class ScoreDisplay {
      */
     update(level, score, lines) {
         // update the display array2d
+        this.level = level;
+        this.score = score;
+        this.lines = lines;
 
         this.repaint();
     }
@@ -78,7 +98,13 @@ class ScoreDisplay {
             { y: Global.DisplayScoreY, text: "Score"},
             { y: Global.DisplayLevelY, text: "Level"},
             { y: Global.DisplayLinesY, text: "Lines"},
-        ])
+        ]);
+
+        this.displayNumbers.refresh([
+            { y: Global.DisplayScoreY, data: this.score },
+            { y: Global.DisplayLevelY, data: this.level },
+            { y: Global.DisplayLinesY, data: this.lines },
+        ]);
         //this.display.refresh(this.array2d.get());
     }
     

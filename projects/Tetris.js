@@ -60,4 +60,4 @@ Playground.UseKeyboard(event => {
 });
 
 
-gameSpace.start();
+gameSpace.initialize();

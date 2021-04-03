@@ -1,5 +1,5 @@
 import { D3x } from "../../visual/D3x.js";
-import { Array2D, Geometry } from "./Helpers.js"
+import { Array2D, Geometry, Global } from "./Helpers.js"
 import { PieceFactory } from "./PieceFactory.js"
 import { PieceForcast } from "./PieceForcast.js"
 import { ScoreDisplay } from "./ScoreDisplay.js"
@@ -34,6 +34,45 @@ class GameSpace {
             y: (d, i) => this.yMargin + (this.gridSize + this.spacing) * this.array2d.getY(i),
         });
 
+        this.dialogBox = new D3x("rect", {
+            fill: Global.DialogBackground,
+            stroke: Global.DialogBorder,
+            width: D3x.WIDTH/2,
+            height: D3x.HEIGHT/2,
+            x: D3x.WIDTH/4,
+            y: D3x.HEIGHT/4,
+            opacity: d => d ? 1 : 0
+        });
+        this.dialogText = new D3x("text", {
+            fill: Global.DialogMessageTextColor,
+            stroke: "none",
+            fontFamily: 'Centaur',
+            fontSize: d => d.fontSize,
+            textAnchor: 'middle',
+            dominantBaseline: 'central',
+            x: D3x.WIDTH/2,
+            y: d => D3x.HEIGHT*d.y,
+            opacity: d => d.gameIsOver ? 1 : 0
+        }).text(
+            d => d.text
+        );
+        this.dialogButton = new D3x("circle", {
+            fill: Global.DialogButtonColor,
+            stroke: "none",
+            cx: D3x.WIDTH/2,
+            cy: D3x.HEIGHT*Global.DialogButtonPosition,
+            r: Global.DialogButtonSize,
+            opacity: d => d ? 1 : 0
+        }, {
+            click: () => {
+                this.start();
+                console.log("restart");
+            }
+        }
+        ).text(
+            "Play Again"
+        );
+
         this.forecast = new PieceForcast(
             this.xMargin + this.width,
             this.yMargin,
@@ -60,6 +99,22 @@ class GameSpace {
      */
     repaint() {
         this.d3x.refresh(this.array2d.get());
+        this.dialogBox.refresh([ this.state === "READY" || this.state === "OVER" ])
+        this.dialogButton.refresh([ this.state === "READY" || this.state === "OVER" ]);
+        this.dialogText.refresh([
+            {
+                gameIsOver: this.state === "READY" || this.state === "OVER",
+                text: this.state === "READY" ? "Welcome to Tetris" : "Game Over",
+                fontSize: Global.DialogMessageFontSize,
+                y: Global.DialogMessagePosition
+            },
+            {
+                gameIsOver: this.state === "READY" || this.state === "OVER",
+                text: this.state === "READY" ? "Start" : "Play Again",
+                fontSize: Global.DialogButtonFontSize,
+                y: Global.DialogButtonPosition
+            },
+        ]);
     }
 
     /**
@@ -114,6 +169,10 @@ class GameSpace {
 
             this.repaint();
             setTimeout(this.tick.bind(this), this.MAX_TICK_TIME/Math.sqrt(this.level));
+
+            // TODO
+            // accumlate the number of ticks
+            // if the current level is lower than maximum, increment level accordingly
         }
     }
 
@@ -193,9 +252,10 @@ class GameSpace {
     // state management behaviors
 
     start() {
-        if (this.state === 'READY') {
+        if (this.state === 'READY' || this.state === 'OVER') {
             // start the game play
             // clear the game space
+            this.array2d.clear();
 
             // start timer based on current game level
             this.state = 'ACTIVE';
@@ -208,6 +268,11 @@ class GameSpace {
             setTimeout(this.tick.bind(this), this.MAX_TICK_TIME/Math.sqrt(this.level));
             this.repaint();
         }
+    }
+
+    initialize() {
+        this.scores.update(1, 0, 0);
+        this.repaint();
     }
 
     pause() {
