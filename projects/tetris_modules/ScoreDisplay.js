@@ -1,5 +1,5 @@
 import { D3x } from "../../visual/D3x.js";
-import { Array2D, Global } from "./Helpers.js";
+import { Global } from "./Helpers.js";
 
 class ScoreDisplay {
     constructor(xMargin, yMargin, displayWidth) {

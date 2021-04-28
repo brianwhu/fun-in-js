@@ -50,6 +50,7 @@ class GameSpace {
             fontSize: d => d.fontSize,
             textAnchor: 'middle',
             dominantBaseline: 'central',
+            pointerEvents: 'none',
             x: D3x.WIDTH/2,
             y: d => D3x.HEIGHT*d.y,
             opacity: d => d.gameIsOver ? 1 : 0
@@ -59,6 +60,7 @@ class GameSpace {
         this.dialogButton = new D3x("circle", {
             fill: Global.DialogButtonColor,
             stroke: "none",
+            cursor: "pointer",
             cx: D3x.WIDTH/2,
             cy: D3x.HEIGHT*Global.DialogButtonPosition,
             r: Global.DialogButtonSize,
@@ -91,6 +93,7 @@ class GameSpace {
 
         this.MAX_TICK_TIME = 1000;
         this.level = 1;
+        this.ticks = 0;
         this.state = "READY";
     }
 
@@ -140,9 +143,14 @@ class GameSpace {
     }
 
     tick() {
-        //console.log("GameSpace: TICK");
-        //console.log(this);
         if (this.state === 'ACTIVE') {
+            ++this.ticks;
+            if (this.ticks > Global.TicksPerGameLevel) {
+                this.ticks = 0;
+                ++this.level;
+                this.scores.update(this.level, this.score, this.completed);
+            }
+
             this.array2d.set(this.piece.getShape(), this.pieceX, this.pieceY, undefined);
             if (this._isAllowed(this.piece.getShape(), this.pieceX, this.pieceY + 1)) {
                 this.pieceY += 1;
@@ -154,7 +162,6 @@ class GameSpace {
                 this.clearFilledLines();
 
                 // display new score
-                console.log(`Score: ${this.score}, Line Completed: ${this.completed}`);
                 this.scores.update(this.level, this.score, this.completed);
 
                 // get a new piece and drop into the game space
@@ -193,6 +200,7 @@ class GameSpace {
             }
             break;
         case "ArrowDown":
+        case " ":
             // drop: set pieceY to maximum value
             while (this._isAllowed(this.piece.getShape(), this.pieceX, this.pieceY + 1)) {
                 this.pieceY += 1;

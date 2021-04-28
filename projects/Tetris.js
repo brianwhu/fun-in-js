@@ -46,17 +46,7 @@ let gameSpace = new GameSpace(20, 10, DISPLAY_MARGIN, DISPLAY_SPACING);
 
 Playground.UseKeyboard(event => {
   //console.log(event.key);
-  switch (event.key) {
-  case "ArrowLeft":
-  case "ArrowUp":
-  case "ArrowRight":
-  case "ArrowDown":
-  case "Clear":
-    gameSpace.control(event.key);
-    break;
-  default:
-    break;
-  }
+  gameSpace.control(event.key);
 });
 
 

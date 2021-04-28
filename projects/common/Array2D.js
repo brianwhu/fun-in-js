@@ -1,5 +1,3 @@
-import { D3x } from "../../visual/D3x.js"
-
 /**
  * Array2D is an array that also represents a 2-dimentional area.
  */
@@ -133,6 +131,17 @@ class Array2D {
   }
 
   /**
+   * Starting from a given element, flood-paint all connected elements with the same color.
+   * 
+   * @param {Number} x - the x coordinate of the starting point
+   * @param {Number} y - the y coordinate of the starting point
+   * @param {Any} color - the new color
+   */
+  flood(x, y, color) {
+
+  }
+
+  /**
    * Logs the 2D shape to the console.
    * 
    * For development and unit test only.
@@ -152,59 +161,7 @@ class Array2D {
   }
 }
 
-class Geometry {
-  /**
-   * Given a rectangular arrangement of square boxes, maring at the top and the bottom, and spacing between
-   * boxes, compute the box sizes and the actual margin.
-   * @param {number} rows - the number of rows of boxes
-   * @param {number} columns - the number of columns of boxes
-   * @param {number} margin - the minimum margin at the top and bottom
-   * @param {number} spacing - the spacing between 2 neightboring boxes
-   * @returns an object { size, xMargin, yMargin }
-   */
-  computeSizeAndMargin(rows, columns, margin, spacing) {
-    let max_size_along_x = (D3x.WIDTH - (columns - 1) * spacing - 2 * margin) / columns;
-    let max_size_along_y = (D3x.HEIGHT - (rows - 1) * spacing - 2 * margin) / rows;
-
-    let size = Math.floor(Math.min(max_size_along_x, max_size_along_y));
-
-    return {
-      size: size,
-      xMargin: (D3x.WIDTH - (size * columns + spacing * (columns - 1))) / 2,
-      yMargin: (D3x.HEIGHT - (size * rows + spacing * (rows - 1))) / 2,
-    }
-  }
-}
-
-let Global = {
-  TitleHeight: 80,
-  TitleFontSize: 64,
-  TitleDisplayGap: 40,
-
-  DisplayFontSize: 48,
-
-  DisplayScoreY: 0.25,
-  DisplayLevelY: 0.45,
-  DisplayLinesY: 0.65,
-  DisplaySpacing: 15,
-
-  DialogBackground: "black",
-  DialogBorder: "yellow",
-
-  DialogMessageTextColor: "yellow",
-  DialogMessagePosition: 0.4,
-  DialogMessageFontSize: 64,
-
-  DialogButtonPosition: 0.6,
-  DialogButtonColor: "green",
-  DialogButtonSize: 100,
-  DialogButtonFontSize: 48,
-
-  TicksPerGameLevel: 90,
-}
 
 export {
-  Array2D,
-  Geometry,
-  Global
+  Array2D
 }
