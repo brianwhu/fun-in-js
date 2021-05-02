@@ -10,6 +10,6 @@ import { ColorFloodGame } from "./flood_modules/ColorFloodGame.js";
 const DISPLAY_MARGIN = 30;
 const DISPLAY_SPACING = 2;
 
-let game = new ColorFloodGame(20, DISPLAY_MARGIN, DISPLAY_SPACING);
+let game = new ColorFloodGame(22, DISPLAY_MARGIN, DISPLAY_SPACING);
 
 game.restart();

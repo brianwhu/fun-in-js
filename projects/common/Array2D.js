@@ -138,7 +138,39 @@ class Array2D {
    * @param {Any} color - the new color
    */
   flood(x, y, color) {
+    let index = this.getIndex(x, y)
 
+    if (this.array[index] === color) {
+      return
+    }
+
+    let oldColor = this.array[index]
+
+    this.array[index] = color
+
+    if (x - 1 >= 0) {
+      if (this.array[this.getIndex(x - 1, y)] === oldColor) {
+        this.flood(x - 1, y, color)
+      }
+    }
+
+    if (x + 1 < this.columns) {
+      if (this.array[this.getIndex(x + 1, y)] === oldColor) {
+        this.flood(x + 1, y, color)
+      }
+    }
+
+    if (y - 1 >= 0) {
+      if (this.array[this.getIndex(x, y - 1)] === oldColor) {
+        this.flood(x, y - 1, color)
+      }
+    }
+
+    if (y + 1 < this.rows) {
+      if (this.array[this.getIndex(x, y + 1)] === oldColor) {
+        this.flood(x, y + 1, color)
+      }
+    }
   }
 
   /**
