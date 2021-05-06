@@ -23,6 +23,8 @@ class ColorFloodGame {
             'cyan'
         ];
 
+        this.maxClicks = Math.floor(25*((size + size)* this.colors.length)/((14+14)*6));
+
         this.rows = size;
         this.columns = size;
         this.array2d = new Array2D(size, size);
@@ -68,6 +70,7 @@ class ColorFloodGame {
             valueFontColor: this.textColor,
             entries: [
                 { label: "Steps", name: "steps", position: 0.4 },
+                { label: "Max Steps", name: "maxClicks", position: 0.6 },
             ]
         });
 
@@ -76,6 +79,7 @@ class ColorFloodGame {
         this.newGame = new D3x("rect", {
             fill: this.backgroundColor,
             stroke: "none",
+            cursor: "pointer",
             width: this.status.width,
             height: this.newGameButtonHeight,
             x: this.xMargin + this.width + this.status.xMargin,
@@ -90,6 +94,7 @@ class ColorFloodGame {
             fontSize: 40,
             textAnchor: 'middle',
             dominantBaseline: 'central',
+            pointerEvents: 'none',
             x: this.xMargin + this.width + this.status.xMargin + this.status.width/2,
             y: this.status.yMargin + this.newGameButtonHeight/2,
         }).text("New Game");
@@ -104,7 +109,6 @@ class ColorFloodGame {
      */
     flood(color) {
         this.array2d.flood(0, 0, color);
-        console.log(`Flooding with color ${color}`);
     }
     /**
      * Repaints the display area with the most recent changes in the data
