@@ -37,14 +37,21 @@ class D3ShapeSeries {
 }
 
 class D3x extends D3ShapeSeries {
+/* Safari does not like these yet
     static WIDTH = 1600;
     static HEIGHT = 900;
     static SVG = "#svg";
+*/
 
     constructor(shape, attributes, handlers) {
         super(D3x.SVG, shape, attributes, handlers);
     }
 }
+
+D3x.WIDTH = 1600;
+D3x.HEIGHT = 900;
+D3x.SVG = "#svg";
+
 
 export {
     D3ShapeSeries,
