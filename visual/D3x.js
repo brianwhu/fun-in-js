@@ -21,6 +21,12 @@ class D3ShapeSeries {
     return this;
   }
 
+  grouped() {
+    this.grouping = true;
+    d3.select(this.selector).append("g").attr("class", this.pclass);
+    return this;
+  }
+
   _kebab(n) {
     return n.replace(/([a-z])([A-Z])/g, (m, l, u) => [l, u.toLowerCase()].join('-'));
   }
@@ -29,7 +35,8 @@ class D3ShapeSeries {
    * Draw or update the shapes with the data array
    */
   refresh(data) {
-    let elements = d3.select(this.selector).selectAll('.' + this.pclass).data(data).join(enter => enter.append(this.shape)).classed(this.pclass, true);
+    let container = this.grouping ? d3.select(this.selector).selectAll('g.' + this.pclass) : d3.select(this.selector);
+    let elements = container.selectAll('.' + this.pclass).data(data).join(enter => enter.append(this.shape)).classed(this.pclass, true);
     Object.keys(this.attributes).forEach(name => elements.attr(this._kebab(name), this.attributes[name]));
     if (this.contents) elements.text(this.contents);
     if (this.handlers) Object.keys(this.handlers).forEach(name => elements.on(this._kebab(name), this.handlers[name]));

@@ -8,7 +8,7 @@ let bubbles = new D3x('circle', {
     r: d => d.r,
     opacity: d => d.opacity
   }
-);
+).grouped();
 
 let data1 = []
 
@@ -20,10 +20,11 @@ let circles = new D3x('circle', {
     r: d => d.r,
     opacity: d => d.opacity
   }
-);
+).grouped();
 
 let MAX_COLOR = 0xFFFFFF;
 let MAX_TRAIL = 80;
+let BUBBLE_SPEED = 50;
 
 let data = [];
 
@@ -38,13 +39,15 @@ svg.addEventListener("mousemove", e => {
     let position = pt.matrixTransform(svg.getScreenCTM().inverse());1
     let speed = Math.sqrt(e.movementX * e.movementX + e.movementY * e.movementY);
     
-    data1.push({
-        cx: position.x,
-        cy: position.y,
-        r: 35,
-        color: 'lightblue',
-    });
-    bubbles.refresh(data1);
+    if (speed > 40) {
+        data1.push({
+            cx: position.x,
+            cy: position.y,
+            r: 30 + 20 * Math.random(),
+            color: 'lightblue',
+        });
+        bubbles.refresh(data1);    
+    }
     
     //console.log(`speed ${speed} @ ${position.x}, ${position.y}`);
     data.push({
@@ -56,6 +59,21 @@ svg.addEventListener("mousemove", e => {
     while (data.length > MAX_TRAIL) data.shift();
     circles.refresh(data);
 });
+
+setInterval(() => {
+    if (data1.length > 0) {
+        data1.forEach(d => d.cy -= BUBBLE_SPEED);
+        let i = 0;
+        while (i < data1.length) {
+            if (data1[i].cy <= -data1[i].r) {
+                data1.splice(i, 1);
+            } else {
+                ++i;
+            }
+        }
+        bubbles.refresh(data1);    
+    }
+}, 100);
 
 /*
 svg.addEventListener("mouseover", e => {
