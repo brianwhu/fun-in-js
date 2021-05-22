@@ -4,7 +4,7 @@ class Piece {
      * Each shape orientation is an array of points {x, y}, where x and y are
      * coordinates within the bounding box
      * 
-     * @param {*} colr - the color of the piece, which does not change
+     * @param {*} color - the color of the piece, which does not change
      * @param {*} size - the size of the bounding box(square)
      * @param {*} shapes - the array of the shape, which is an object { x, y }, where x and y
      * are coordinates within the bounding box
