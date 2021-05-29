@@ -1,5 +1,6 @@
 import { D3x } from "../visual/D3x.js";
 import { Array2D } from "./common/Array2D.js";
+import { FloatingTools } from "./common/FloatingTools.js";
 
 class GameOfLife {
     constructor() {
@@ -20,8 +21,37 @@ class GameOfLife {
             height: GameOfLife.GRID_SIZE,
             fill: d => GameOfLife.COLOR,
             opacity: d => d/5,
-            stroke: "none"
+            stroke: "none",
+            pointerEvents: "none"
         })
+
+        this.space.refresh(this.data.get());
+        this.tools = new FloatingTools([
+                {   shapes: [ FloatingTools.ICON_PLAY, FloatingTools.ICON_PAUSE ],
+                    labels: [ "Play", "Pause" ],
+                    active: 0,
+                    action: (c, i) => {
+                        c.active = 1 - i
+                    }
+                },
+                {   shapes: [ FloatingTools.ICON_ADD ],
+                    labels: [ "Add" ],
+                    active: 0,
+                    action: () => console.log("add")
+                },
+                {   shapes: [ FloatingTools.ICON_REPLAY ],
+                    labels: [ "Reset" ],
+                    active: 0,
+                    action: (c, i, p) => {
+                        console.log("reset");
+                        p[0].active = 0;
+                    }
+                },
+            ], {
+                enter: () => console.log("enter"),
+                leave: () => console.log("leave"),
+            }
+        );
 
         this.timer = null;
     }

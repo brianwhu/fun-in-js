@@ -21,9 +21,17 @@ class D3ShapeSeries {
     return this;
   }
 
-  grouped() {
-    this.grouping = true;
-    d3.select(this.selector).append("g").attr("class", this.pclass);
+  grouped(attributes, handlers) {
+    this.group = {
+        element: d3.select(this.selector).append("g").attr("class", this.pclass),
+        attributes: attributes,
+        handlers: handlers
+    }
+    if (attributes.title) {
+        this.group.label = attributes.title;
+        this.group.title = this.group.element.append("title");
+        delete attributes.title;
+    }
     return this;
   }
 
@@ -35,7 +43,16 @@ class D3ShapeSeries {
    * Draw or update the shapes with the data array
    */
   refresh(data) {
-    let container = this.grouping ? d3.select(this.selector).selectAll('g.' + this.pclass) : d3.select(this.selector);
+    let container;
+    if (this.group) {
+        if (this.group.attributes) Object.keys(this.group.attributes).forEach(name => this.group.element.attr(this._kebab(name), this.group.attributes[name]));
+        if (this.group.handlers) Object.keys(this.group.handlers).forEach(name => this.group.element.on(this._kebab(name), this.group.handlers[name]));
+        if (this.group.label) this.group.title.text(this.group.label);
+        container = this.group.element;
+    } else {
+        container = d3.select(this.selector);
+    }
+
     let elements = container.selectAll('.' + this.pclass).data(data).join(enter => enter.append(this.shape)).classed(this.pclass, true);
     Object.keys(this.attributes).forEach(name => elements.attr(this._kebab(name), this.attributes[name]));
     if (this.contents) elements.text(this.contents);

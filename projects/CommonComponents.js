@@ -1,4 +1,5 @@
 import { BulletinBoard } from "./common/BulletinBoard.js";
+import { FloatingTools } from "./common/FloatingTools.js";
 import { D3x } from "../visual/D3x.js";
 
 let board = new BulletinBoard({
@@ -41,5 +42,13 @@ let board2 = new BulletinBoard({
       ]
   });
 
+
+
 board.update({gameScore: 200, level: 120, lines: 101, totalTime: '1 hour'});
 board2.update(data2);
+
+let controls = new FloatingTools([
+    { shapes: [ FloatingTools.ICON_PLAY, FloatingTools.ICON_PAUSE ], active: 0, action: (c, i) => { c.active = 1 - i } },
+    { shapes: [ FloatingTools.ICON_ADD ], active: 0, action: () => console.log("add") },
+    { shapes: [ FloatingTools.ICON_REPLAY ], active: 0, action: (c, i, p) => { console.log("reset"); p[0].active = 0; } }
+]);
