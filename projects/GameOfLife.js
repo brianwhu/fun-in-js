@@ -46,6 +46,53 @@ class GameOfLife {
         // go over the world and update each cell
         //console.log("tick");
 
+        let life = new Array(this.data.get().length).fill(0);
+
+        let neighborFinders = [
+            { dx: -1, dy: -1 },
+            { dx: -1, dy:  0 },
+            { dx:  0, dy: -1 },
+            { dx: -1, dy: +1 },
+            { dx:  0, dy: +1 },
+            { dx: +1, dy:  0 },
+            { dx: +1, dy: +1 },
+            { dx: +1, dy: -1 },
+        ];
+                   
+        for (let i = 0; i < this.data.get().length; ++i) {
+
+            let count = 0
+
+            let x = this.data.getX(i)
+            let y = this.data.getY(i)
+
+            for (let j = 0; j < neighborFinders.length; ++j) {
+                let neighborX = x + neighborFinders[j].dx;
+                let neighborY = y + neighborFinders[j].dy;
+
+                if (neighborX < 0) continue;
+                if (neighborX > this.columns - 1) continue;
+                if (neighborY < 0) continue;
+                if (neighborY > this.rows - 1) continue;
+
+                if (this.data.get()[this.data.getIndex(neighborX, neighborY)] > 0) {
+                    ++count
+                }
+            }
+            
+            if (this.data.get()[i] > 0) {
+                if (count === 2 || count === 3) {
+                    life[i] = this.data.get()[i] + 1
+                }
+            } else {
+                if (count === 3) {
+                    life[i] = 1
+                }
+            }
+        }
+
+        this.data.setArray(life)
+
         this.update();
     }
 
@@ -60,9 +107,9 @@ class GameOfLife {
     }
 }
 
-GameOfLife.GRID_SIZE = 20;
+GameOfLife.GRID_SIZE = 15;
 GameOfLife.COLOR = '#3C3B6E';
-GameOfLife.TICK_INTERVAL = 500;
+GameOfLife.TICK_INTERVAL = 700;
 GameOfLife.RANDOM_LIFE_PERCENT = 0.20;
 
 ///////////////////////

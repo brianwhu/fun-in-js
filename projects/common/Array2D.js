@@ -13,6 +13,10 @@ class Array2D {
     return this.array;
   }
 
+  setArray(array) {
+    this.array = array;
+  }
+
   // address conversion between 1-dimensional and 2-dimensional
 
   /**
