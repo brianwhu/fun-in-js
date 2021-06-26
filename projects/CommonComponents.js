@@ -1,6 +1,7 @@
 import { BulletinBoard } from "./common/BulletinBoard.js";
 import { FloatingTools } from "./common/FloatingTools.js";
 import { D3x } from "../visual/D3x.js";
+import { SettingsModal } from "../visual/SettingsModal.js";
 
 let board = new BulletinBoard({
         area: { x: 0, y: 0, width: D3x.WIDTH/2, height: D3x.HEIGHT },
@@ -46,6 +47,41 @@ let board2 = new BulletinBoard({
 
 board.update({gameScore: 200, level: 120, lines: 101, totalTime: '1 hour'});
 board2.update(data2);
+
+SettingsModal.configure({
+    name: {
+        label: "Name",
+        prompt: "Please enter your name",
+        value: "JavaScript World",
+    },
+    numbers: {
+        label: "Numbers",
+        prompt: "A comma-separated list of natural numbers",
+        value: "",
+        check: /^ *(:?(\d{1,})(?: *, *(\d{1,}))*)? *$/,
+        parse: /[^ ,]{1,}/g
+    },
+    "grade": {
+        label: "School Grade",
+        prompt: "Your grade in school",
+        value: "Fourth",
+        options: [
+            "Kindergarten",
+            "First",
+            "Second",
+            "Third",
+            "Fourth",
+            "Fifth"
+        ]
+    },
+    size: {
+        label: "Size",
+        prompt: "Playground size",
+        value: 50,
+        check: /^ *[0-9]\d* *$/,
+        parse: v => Number(v)
+    }
+});
 
 let controls = new FloatingTools([
     { shapes: [ FloatingTools.ICON_PLAY, FloatingTools.ICON_PAUSE ], active: 0, action: (c, i) => { c.active = 1 - i } },

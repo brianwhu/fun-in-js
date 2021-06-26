@@ -56,14 +56,16 @@ class SettingsModal {
             if (args[p].options) {
                 input = document.createElement("select");
 
+if (args[p].prompt) {
                 let option = document.createElement("option");
                     option.setAttribute("value", "");
                     if (args[p].value === "") option.setAttribute("selected", "selected");
                     option.innerHTML = args[p].prompt;
                 input.appendChild(option);
+}
 
                 for (let i = 0; i < args[p].options.length; ++i) {
-                    option = document.createElement("option");
+                    let option = document.createElement("option");
                     option.setAttribute("value", args[p].options[i]);
                     option.innerHTML = args[p].options[i];
                     if (args[p].value === args[p].options[i]) option.setAttribute("selected", "selected");

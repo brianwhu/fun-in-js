@@ -27,7 +27,7 @@ class D3ShapeSeries {
         attributes: attributes,
         handlers: handlers
     }
-    if (attributes.title) {
+    if (attributes && attributes.title) {
         this.group.label = attributes.title;
         this.group.title = this.group.element.append("title");
         delete attributes.title;
