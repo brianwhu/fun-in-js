@@ -14,7 +14,9 @@ class Array2D {
   }
 
   setArray(array) {
+    let old = this.array;
     this.array = array;
+    return old;
   }
 
   // address conversion between 1-dimensional and 2-dimensional
