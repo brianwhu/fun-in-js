@@ -1,3 +1,5 @@
+#!/usr/bin/env deno run
+
 // Month Names
 const monthNames = [
         "January",
