@@ -38,62 +38,6 @@ import { readLines } from "https://deno.land/std/io/mod.ts";
     Player 'X' wins!
 */
 
-let adjectives = [
-  'Good',
-  'New',
-  'First',
-  'Last',
-  'Long',
-  'Great',
-  'Little',
-  'Own',
-  'Other',
-  'Old',
-  'Right',
-  'Big',
-  'High',
-  'Different',
-  'Small',
-  'Large',
-  'Next',
-  'Early',
-  'Young',
-  'Important',
-  'Few',
-  'Public',
-  'Bad',
-  'Same',
-  'Able',
-];
-
-let nouns = [
-  'Time',
-  'Person',
-  'Year',
-  'Way',
-  'Day',
-  'Thing',
-  'Man',
-  'World',
-  'Life',
-  'Hand',
-  'Part',
-  'Child',
-  'Eye',
-  'Woman',
-  'Place',
-  'Work',
-  'Week',
-  'Case',
-  'Point',
-  'Government',
-  'Company',
-  'Number',
-  'Group',
-  'Problem',
-  'Fact',
-];
-
 let player = 'X'
 let switchPlayer = function() {
     if (player === 'X') {
@@ -104,19 +48,82 @@ let switchPlayer = function() {
 }
 
 // generate a random secret phrase
-let actualAdjective
-let actualNoun
 let phrase
-let generatePhrase = function() {
-    actualAdjective = `${adjectives[Math.floor(Math.random() * adjectives.length)]}`
-    actualNoun = `${nouns[Math.floor(Math.random() * nouns.length)]}`
-    phrase = `${actualAdjective} ${actualNoun}`
-}
-
-// display the phrase using placeholders: .... ....
 let placeholder
-let generatePlaceholder = function() {
-    placeholder = `${'.'.repeat(actualAdjective.length)} ${'.'.repeat(actualNoun.length)}`
+
+let generatePhraseAndPlaceholder = function() {
+    let adjectives = [
+      'Good',
+      'New',
+      'First',
+      'Last',
+      'Long',
+      'Great',
+      'Little',
+      'Own',
+      'Other',
+      'Old',
+      'Right',
+      'Big',
+      'High',
+      'Different',
+      'Small',
+      'Large',
+      'Next',
+      'Early',
+      'Young',
+      'Important',
+      'Few',
+      'Public',
+      'Bad',
+      'Same',
+      'Able',
+    ];
+
+    let nouns = [
+      'Time',
+      'Person',
+      'Year',
+      'Way',
+      'Day',
+      'Thing',
+      'Man',
+      'World',
+      'Life',
+      'Hand',
+      'Part',
+      'Child',
+      'Eye',
+      'Woman',
+      'Place',
+      'Work',
+      'Week',
+      'Case',
+      'Point',
+      'Government',
+      'Company',
+      'Number',
+      'Group',
+      'Problem',
+      'Fact',
+    ];
+
+    let actualAdjective
+    let actualNoun
+
+    let generatePhrase = function() {
+        actualAdjective = `${adjectives[Math.floor(Math.random() * adjectives.length)]}`
+        actualNoun = `${nouns[Math.floor(Math.random() * nouns.length)]}`
+        phrase = `${actualAdjective} ${actualNoun}`
+    }
+
+    // display the phrase using placeholders: .... ....
+    let generatePlaceholder = function() {
+        placeholder = `${'.'.repeat(actualAdjective.length)} ${'.'.repeat(actualNoun.length)}`
+    }
+
+    generatePhrase()
+    generatePlaceholder()
 }
 
 let isSolutionCorrect = function(solution) {
@@ -132,10 +139,8 @@ let gameOver = function() {
     console.log('')
     console.log('NEW GAME')
     switchPlayer()
-    generatePhrase()
-    generatePlaceholder()
-    console.log(placeholder)
-    console.log(`Player '${player}', please enter your guess (1 letter or SOLVE)`)
+    generatePhraseAndPlaceholder()
+    promptForNextMove()
 }
 
 let gameplay = function(letter) {
@@ -150,11 +155,14 @@ let gameplay = function(letter) {
     placeholder = placeholderArray.join('')
 }
 
+let promptForNextMove = function() {
+    console.log(placeholder)
+    console.log(`Player '${player}', please enter your guess (1 letter or SOLVE)`)
+}
+
 // prompt
-generatePhrase()
-generatePlaceholder()
-console.log(placeholder)
-console.log(`Player '${player}', please enter your guess (1 letter or SOLVE)`)
+generatePhraseAndPlaceholder()
+promptForNextMove()
 
 const input = readLines(Deno.stdin);
 for (let data = await input.next(); !data.done; data = await input.next()) {
@@ -194,13 +202,11 @@ for (let data = await input.next(); !data.done; data = await input.next()) {
         continue
     }
 
-    // display the phrase using placeholders: .... ....
-    console.log(placeholder)
-
     // switch player
     switchPlayer()
 
+    // display the phrase using placeholders: .... ....
     // prompt
-    console.log(`Player '${player}', please enter your guess (1 letter or SOLVE)`)
+    promptForNextMove()
 }
 
