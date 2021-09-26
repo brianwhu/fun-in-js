@@ -45,6 +45,23 @@ import { readLines } from "https://deno.land/std/io/mod.ts";
 
 const NUM_OF_DISKS = 5;
 
+class Pin {
+}
+
+let pins = [
+    new Pin(),
+    new Pin(),
+    new Pin(),
+]
+
+let moveDisk = function(...) {
+    let from = ...
+    let to = ...
+
+    let disk = pins[from].remove();
+    pins[to].add(disk);
+}
+
 let steps = 0;
 
 const input = readLines(Deno.stdin);
