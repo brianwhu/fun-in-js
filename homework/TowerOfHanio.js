@@ -43,42 +43,152 @@ import { readLines } from "https://deno.land/std/io/mod.ts";
 
 */
 
-const NUM_OF_DISKS = 5;
+const NUM_OF_DISKS = 3
 
-class Pin {
+let lower2number = s => s.charCodeAt(0) - 'a'.charCodeAt(0);
+
+let promptForNextMove = function () {
+    console.log("Please enter your move as 2 letters (e.g. 'ac' moves a disk from pin A to C):")
 }
 
-let pins = [
-    new Pin(),
-    new Pin(),
-    new Pin(),
-]
+let isValidInput = function (input) {
+    let valid = /^[a-c]{2}$/
+    if (valid.test(input)) {
+        // good
+        return true
+    }
+}
 
-let moveDisk = function(...) {
-    let from = ...
-    let to = ...
-
-    let disk = pins[from].remove();
-    pins[to].add(disk);
+let disks = []
+for (let i = 0; i < NUM_OF_DISKS; ++i) {
+    disks.push([i + 1, 0, 0])
 }
 
 let steps = 0;
 
+/*
+disks = [
+    [1, 0, 0],
+    [2, 0, 0],
+    [3, 0, 0],
+    [4, 0, 0]
+]
+*/
+
+let top = `${' '.repeat(disks.length + 1)}|${' '.repeat(disks.length + 4 + disks.length - 1)}|${' '.repeat(disks.length + 4 + disks.length - 1)}|`
+let base = `${'='.repeat(disks.length * 2 + 3)} ${'='.repeat(disks.length * 2 + 3)} ${'='.repeat(disks.length * 2 + 3)}`
+let labels = `${' '.repeat(disks.length + 1)}a${' '.repeat(disks.length + 1)}${' '.repeat(disks.length + 2)}b${' '.repeat(disks.length + 1)}${' '.repeat(disks.length + 2)}c`
+
+/*
+     |         |         |
+    -+-        |         |
+   --+--       |         |
+  ---+---      |         |
+ ========= ========= =========
+     a         b         c
+*/
+
+let displayDisks = function () {
+    console.log(top)
+    for (let i = 0; i < disks.length; ++i) {
+        let line = ''
+        for (let j = 0; j < disks[i].length; ++j) {
+            if (disks[i][j] === 0) {
+                line = line + ' '.repeat(disks.length + 1) + '|' + ' '.repeat(disks.length + 2)
+            } else {
+                line = line + ' '.repeat(disks.length + 1 - disks[i][j]) + '-'.repeat(disks[i][j]) + '+' + '-'.repeat(disks[i][j]) + ' '.repeat(disks.length + 2 - disks[i][j])
+            }
+        }
+        console.log(line)
+    }
+    console.log(base)
+    console.log(labels)
+    console.log('')
+    console.log(`You have made ${steps} moves.`)
+}
+
+let peak = function (pin) {
+    for (let i = 0; i < NUM_OF_DISKS; ++i) {
+        if (disks[i][pin] !== 0) {
+            return disks[i][pin]
+        }
+    }
+    return undefined
+}
+
+let remove = function (pin) {
+    for (let i = 0; i < NUM_OF_DISKS; ++i) {
+        if (disks[i][pin] !== 0) {
+            let disk = disks[i][pin]
+            disks[i][pin] = 0
+            return disk
+        }
+    }
+    return undefined
+}
+
+let add = function (pin, disk) {
+    for (let i = 0; i < NUM_OF_DISKS; ++i) {
+        if (disks[i][pin] !== 0) {
+            disks[i - 1][pin] = disk
+            return disk
+        }
+    }
+    disks[NUM_OF_DISKS - 1][pin] = disk
+    return disk
+}
+
+let move = function (fromPin, toPin) {
+    if (peak(fromPin) === undefined) {
+        return false;
+    } else if (peak(toPin) === undefined) {
+        let disk = remove(fromPin);
+        add(toPin, disk);
+        return true
+    } else {
+        let disk1 = peak(fromPin);
+        let disk2 = peak(toPin);
+        if (disk1 < disk2) {
+            let disk = remove(fromPin);
+            add(toPin, disk);
+            return true
+        } else {
+            return false;
+        }
+    }
+}
+
+displayDisks()
+promptForNextMove()
+
 const input = readLines(Deno.stdin);
 for (let data = await input.next(); !data.done; data = await input.next()) {
-    console.log(input.value);
     // process data.value here
     if (isValidInput(data.value)) {
-        if (isValidMove(data.value)) {
-            move(data.value);
+        let fromPin = lower2number(data.value.charAt(0))
+        let toPin = lower2number(data.value.charAt(1))
+        if (move(fromPin, toPin)) {
             ++steps;
-
             displayDisks();
-            promptForNextMove();
+
+            if (disks[0][2] === 1) {
+                console.log(`Congratulations! You moved the disks in ${steps} steps.`)
+                disks = []
+                for (let i = 0; i < NUM_OF_DISKS; ++i) {
+                    disks.push([i + 1, 0, 0])
+                }
+
+                console.log('')
+                console.log('NEW GAME')
+                displayDisks()
+                promptForNextMove()
+            } else {
+                promptForNextMove();
+            }
         } else {
-            reportInvalidMode();
+            console.log('Invalid input or move')
         }
     } else {
-        reportInvalidInput();
+        console.log('Invalid input or move')
     }
 }
