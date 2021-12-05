@@ -1,6 +1,28 @@
 import { readLines } from "https://deno.land/std/io/mod.ts";
 
 /*
+    Update
+    ======
+
+1. Allow the play to save the game, and load it later.
+
+    1.1 User command to save game progress
+
+    If user enters "save", save the game progress into "TowerOfHanoi.json".
+
+    1.2 User commnad to load game progress
+
+    If user enters "load", load the game progress from "TowerOfHanoi.json", replacing current progress.
+
+2. After saving or loading, the game continues as usual.
+
+    2.1 Print the towers
+
+    2.2 Ask for next move
+
+*/
+
+/*
     A command line Tower of Hanoi game
     ==================================
 
