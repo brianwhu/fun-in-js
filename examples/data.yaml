@@ -1,0 +1,8 @@
+playerName: tuwaise
+monsters:
+  - number: 1
+    type: fire
+  - number: 2
+    type: water
+  - number: 3
+    type: grass
