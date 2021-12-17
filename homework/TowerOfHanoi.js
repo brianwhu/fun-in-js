@@ -65,7 +65,7 @@ import { readLines } from "https://deno.land/std/io/mod.ts";
 
 */
 
-const NUM_OF_DISKS = 4
+const NUM_OF_DISKS = 2
 
 let lower2number = s => s.charCodeAt(0) - 'a'.charCodeAt(0);
 
@@ -221,6 +221,7 @@ for (let data = await input.next(); !data.done; data = await input.next()) {
             if (disks[0][2] === 1) {
                 console.log(`Congratulations! You moved the disks in ${steps} steps.`)
                 disks = []
+                steps = 0
                 for (let i = 0; i < NUM_OF_DISKS; ++i) {
                     disks.push([i + 1, 0, 0])
                 }
