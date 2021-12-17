@@ -71,6 +71,7 @@ let lower2number = s => s.charCodeAt(0) - 'a'.charCodeAt(0);
 
 let promptForNextMove = function () {
     console.log("Please enter your move as 2 letters (e.g. 'ac' moves a disk from pin A to C):")
+    console.log('Enter "save" to save the game and "load" to load an existing game.')
 }
 
 let isValidInput = function (input) {
@@ -186,7 +187,26 @@ promptForNextMove()
 const input = readLines(Deno.stdin);
 for (let data = await input.next(); !data.done; data = await input.next()) {
     // process data.value here
-    if (isValidInput(data.value)) {
+    if (data.value === 'save') {
+        let savedDisks =
+        {
+            disks: disks,
+            steps: steps
+        }
+        await Deno.writeTextFile("TowerOfHanoi.json", JSON.stringify(savedDisks));
+        console.log('Saved')
+        displayDisks()
+        promptForNextMove()
+        continue
+    } else if (data.value === 'load') {
+        let newDisks = JSON.parse(await Deno.readTextFile('TowerOfHanoi.json'));
+        disks = newDisks.disks
+        steps = newDisks.steps
+        console.log('Loaded')
+        displayDisks()
+        promptForNextMove()
+        continue
+    } else if (isValidInput(data.value)) {
         let fromPin = lower2number(data.value.charAt(0))
         let toPin = lower2number(data.value.charAt(1))
         if (move(fromPin, toPin)) {
