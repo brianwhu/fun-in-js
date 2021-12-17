@@ -65,7 +65,7 @@ import { readLines } from "https://deno.land/std/io/mod.ts";
 
 */
 
-const NUM_OF_DISKS = 3
+const NUM_OF_DISKS = 4
 
 let lower2number = s => s.charCodeAt(0) - 'a'.charCodeAt(0);
 
@@ -199,11 +199,16 @@ for (let data = await input.next(); !data.done; data = await input.next()) {
         promptForNextMove()
         continue
     } else if (data.value === 'load') {
-        let newDisks = JSON.parse(await Deno.readTextFile('TowerOfHanoi.json'));
-        disks = newDisks.disks
-        steps = newDisks.steps
-        console.log('Loaded')
-        displayDisks()
+        try {
+            let newDisks = JSON.parse(await Deno.readTextFile('TowerOfHanoi.json'));
+            disks = newDisks.disks
+            steps = newDisks.steps
+            console.log('Loaded')
+            displayDisks()
+        } catch(error) {
+            console.log("ERROR: No saved game found");
+        }
+
         promptForNextMove()
         continue
     } else if (isValidInput(data.value)) {
