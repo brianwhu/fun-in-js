@@ -32,23 +32,18 @@ import { readLines } from "https://deno.land/std/io/mod.ts";
 
 */
 
-let characters = JSON.parse(await Deno.readTextFile('fun-in-js/data/HarryPotterCharacters.json'))
-let questions = ['To which house does this person belong?', 'This person is...']
+const characters = JSON.parse(await Deno.readTextFile('fun-in-js/data/HarryPotterCharacters.json'))
+const questions = ['To which house does this person belong?', 'This person is...']
 
-let answersA = ['Gryffindor', 'Slytherin', 'Hufflepuff', 'Ravenclaw']
-let answersB = ['a student', 'a staff member', 'neither/unknown']
-let labels = ['a)', 'b)', 'c)', 'd)']
-
-let number = 0
-let theQuestion = ''
-let choices = ''
-let correctAnswer = ''
-let done = []
+const answersA = ['Gryffindor', 'Slytherin', 'Hufflepuff', 'Ravenclaw']
+const answersB = ['a student', 'a staff member', 'neither/unknown']
+const labels = ['a) ', 'b) ', 'c) ', 'd) ']
 
 let lower2number = s => s.charCodeAt(0) - 'a'.charCodeAt(0);
 
+let done = []
 let assignPerson = function () {
-    number = Math.floor(Math.random() * characters.length)
+    let number = Math.floor(Math.random() * characters.length)
 
     for (let i = 0; i < done.length; ++i) {
         if (done[i] === number) {
@@ -57,24 +52,29 @@ let assignPerson = function () {
         }
     }
     done.push(number)
+    return number
 }
 
-let pickQuestion = function () {
+let pickQuestion = function (number) {
+    let theQuestion = null
     if (characters[number].house === '') {
         theQuestion = questions[1]
     } else {
         theQuestion = questions[Math.floor(Math.random() * 2)]
     }
+    return theQuestion
 }
 
-let isHogwartsStudent = function () {
+let isHogwartsStudent = function (number) {
     return characters[number].hogwartsStudent
 }
-let isHogwartsStaff = function () {
+let isHogwartsStaff = function (number) {
     return characters[number].hogwartsStaff
 }
 
-let assignChoices = function () {
+let assignChoices = function (number, theQuestion) {
+    let choices
+    let correctAnswer
     if (theQuestion === questions[0]) {
         choices = answersA
         for (let i = 0; i < choices.length; ++i) {
@@ -84,20 +84,28 @@ let assignChoices = function () {
         }
     } else {
         choices = answersB
-        if (isHogwartsStudent()) {
+        if (isHogwartsStudent(number)) {
             correctAnswer = answersB[0]
-        } else if (isHogwartsStaff()) {
+        } else if (isHogwartsStaff(number)) {
             correctAnswer = answersB[1]
         } else {
             correctAnswer = answersB[2]
         }
     }
+    return { choices, correctAnswer }
 }
 
 // check input data correct
-let check = function (data) {
+let check = function (data, choices, correctAnswer) {
     return choices[lower2number(data.charAt(0))] === correctAnswer
 }
+
+/////// Entry Point
+
+let number = 0
+let theQuestion = ''
+let choices = ''
+let correctAnswer = ''
 
 let prompt = function () {
     console.log('')
@@ -110,9 +118,11 @@ let prompt = function () {
 }
 
 let nextQuestion = function () {
-    assignPerson()
-    pickQuestion()
-    assignChoices()
+    number = assignPerson()
+    theQuestion = pickQuestion(number)
+    let result = assignChoices(number, theQuestion)
+    choices = result.choices
+    correctAnswer = result.correctAnswer
     prompt()
 }
 
@@ -131,7 +141,7 @@ for (let data = await input.next(); !data.done; data = await input.next()) {
     } else if (data.value < 'a' || data.value > 'd') {
         console.log('Please enter a single letter between the letters "a" and "d".')
         continue
-    } else if (!check(data.value)) {
+    } else if (!check(data.value, choices, correctAnswer)) {
         ++count
         console.log('Incorrect answer.')
         console.log(`The correct answer was ${correctAnswer}.`)
