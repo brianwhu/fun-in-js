@@ -44,87 +44,44 @@ const characters = JSON.parse(await Deno.readTextFile('fun-in-js/data/HarryPotte
 // Total Characters
 let count = 0
 for (let i = 0; i < characters.length; ++i) {
-       ++count
+    ++count
 }
 console.log(`Total Characters: ${count}`)
 
 //////////////
 
-let property = ['species', 'ancestry', 'house', 'wizard', 'patronus']
+let property = ['species', 'ancestry', 'house', 'wizard', 'patronus', 'eyeColour', 'hairColour' ]
 
 let allStats = {}
 
 for (let i = 0; i < characters.length; ++i) {
-       for (let p = 0; p < property.length; ++p) {
-              let stats = allStats[property[p]]
-              if (stats === undefined) {
-                     stats = {}
-                     allStats[property[p]] = stats
-              }
-              let count = allStats[property[p]][characters[i][property[p]]];   // count = speciesStats.human
-              if (count === undefined) count = 1; else ++count;
-              allStats[property[p]][characters[i][property[p]]] = count; // speciesStats.human = 1
-       }
-}
-
-for (let p = 0; p < property.length; ++p) {
-       let keys = Object.keys(allStats[property[p]])
-       console.log('')
-       console.log(property[p].toUpperCase())
-       for (let i = 0; i < keys.length; ++i) {
-              if (keys[i] !== '') {
-                     console.log(`${keys[i]}: ${allStats[property[p]][keys[i]]}`);   // `human: ${stats.human}`
-              } else {
-                     console.log(`unknown: ${allStats[property[p]][keys[i]]}`);   // `human: ${stats.human}`
-              }
-       }
-}
-
-/*
-let property = [ "wand", "magic", "ancestry", "species", "age" ]
-
-for (let p = 0; p < property.length; ++p) {
-    for (...) {
-        .... chararcters[i][property[p]] ..
-        ...
+    for (let p = 0; p < property.length; ++p) {
+        let stats = allStats[property[p]]
+        if (stats === undefined) {
+            stats = {}
+            allStats[property[p]] = stats
+        }
+        let count = allStats[property[p]][characters[i][property[p]]];   // count = speciesStats.human
+        if (count === undefined) count = 1; else ++count;
+        allStats[property[p]][characters[i][property[p]]] = count; // speciesStats.human = 1
     }
 }
-stats = []
-speciesStats
-stats["species"]
 
+for (let p = 0; p < property.length; ++p) {
+    let keys = Object.keys(allStats[property[p]])
+    console.log('')
+    console.log(property[p].toUpperCase())
 
-//-//-//-//-//
-
-
-let persons = [
-       { spices: 'human', name: 'brian' },
-       { spices: 'human', name: 'april' },
-       { spices: 'dog', name: 'steve' }
-]
-
-//////////////
-
-let speciesStats = {}
-let nameStats = {}
-
-for (let i = 0; i < persons.length; ++i) {
-       let count = speciesStats[persons[i].spices];   // count = speciesStats.human
-       if (count === undefined) count = 1; else ++count;
-       speciesStats[persons[i].spices] = count; // speciesStats.human = 1
-
-       count = nameStats[persons[i].name];   // count = nameStats.human
-       if (count === undefined) count = 1; else ++count;
-       nameStats[persons[i].name] = count; // nameStats.human = 1
+    let unknown = 0;
+    for (let i = 0; i < keys.length; ++i) {
+        if (keys[i] !== '') {
+            console.log(`\t${keys[i]}: ${allStats[property[p]][keys[i]]}`);   // `human: ${stats.human}`
+        } else {
+            unknown = allStats[property[p]][keys[i]];
+        }
+    }
+    if (unknown > 0) {
+        console.log(`\t*unknown: ${unknown}`);
+    }
 }
 
-let keys = Object.keys(speciesStats)
-for (let i = 0; i < keys.length; ++i) {
-       console.log(`${keys[i]}: ${speciesStats[keys[i]]}`);   // `human: ${stats.human}`
-}
-
-keys = Object.keys(nameStats)
-for (let i = 0; i < keys.length; ++i) {
-       console.log(`${keys[i]}: ${nameStats[keys[i]]}`);   // `human: ${stats.human}`
-}
-*/
