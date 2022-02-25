@@ -4,6 +4,8 @@ class LinkedQueue {
      * Refer to https://www.cs.usfca.edu/~galles/visualization/QueueLL.html
      */
     initialize() {
+        this.head = null
+        this.tail = null
     }
 
     /**
