@@ -3,7 +3,7 @@ class LinkedQueue {
      * Creates a new empty linked queue.
      * Refer to https://www.cs.usfca.edu/~galles/visualization/QueueLL.html
      */
-    initialize() {
+    constructor() {
         this.head = null
         this.tail = null
     }
@@ -11,14 +11,43 @@ class LinkedQueue {
     /**
      * Adds data to the end of the queue.
      */
-    enqueue(data) {
+    enqueue(x) {
+        let node = new Node(x)
+        if (this.head === null) {
+            this.head = node
+            this.tail = node
+        } else {
+            this.tail.next = node
+            this.tail = node
+        }
     }
 
     /**
      * Removes and returns the first element of the queue.
      */
     dequeue() {
-        return undefined
+        let node = this.head
+        if (node === null) {
+            return undefined
+        } else {
+            this.head = this.head.next
+            if (this.head === null) {
+                this.tail = null
+            }
+            return node.data
+        }
+    }
+
+    print() {
+        console.log(this.head)
+        console.log(this.tail)
+    }
+}
+
+class Node {
+    constructor(payload) {
+        this.data = payload
+        this.next = null
     }
 }
 
@@ -26,12 +55,23 @@ class LinkedQueue {
 
 let queue = new LinkedQueue()
 
+if (queue.dequeue() !== undefined) {
+    console.log('failure')
+}
+
 queue.enqueue(10)
 queue.enqueue(20)
 
-let ten = queue.dequeue();
-if (ten === 10) {
-    console.log("success");
-} else {
-    console.log("failure");
+if (queue.dequeue() !== 10) {
+    console.log('failure')
 }
+
+if (queue.dequeue() !== 20) {
+    console.log('failure')
+}
+
+if (queue.dequeue() !== undefined) {
+    console.log('failure')
+}
+
+queue.print()
