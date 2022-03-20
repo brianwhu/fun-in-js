@@ -75,3 +75,7 @@ if (queue.dequeue() !== undefined) {
 }
 
 queue.print()
+
+export {
+    LinkedQueue
+}
