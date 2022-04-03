@@ -39,8 +39,9 @@ class LinkedQueue {
     }
 
     print() {
-        console.log(this.head)
-        console.log(this.tail)
+        for (let probe = this.head; probe !== null; probe = probe.next) {
+            console.log(probe.data)
+        }
     }
 }
 
@@ -77,5 +78,5 @@ if (queue.dequeue() !== undefined) {
 queue.print()
 
 export {
-    LinkedQueue
+    LinkedQueue, Node
 }
