@@ -31,7 +31,9 @@ class OrderedBinaryTree {
     /**
      * Inserts a String value into the tree such that at any node the follow is true.
      * 
-     *  left.data <= this.data <= right.data
+     *      node.left.data < node.data < node.right.data
+     * 
+     * If a value is already in the tree, no change is to be made to the tree.
      * 
      * @param {*} data - a String value
      */
