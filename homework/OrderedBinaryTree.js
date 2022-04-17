@@ -15,9 +15,20 @@ class BinaryTreeNode {
     // tells whether this node is a leaf or not
     // tells whether this is a subtree or just a leaf
     isLeaf() {
-        return this.left === null && this.right === null;
+        if (this.left === null && this.right === null) {
+            return this.left === null && this.right === null;
+        }
     }
 
+    print() {
+        if (this.left !== null) {
+            this.left.print()
+        }
+        console.log(this.data)
+        if (this.right !== null) {
+            this.right.print()
+        }
+    }
 }
 
 class OrderedBinaryTree {
@@ -25,7 +36,7 @@ class OrderedBinaryTree {
      * Constructs an OrderedBinaryTree with the given node at its root
      */
     constructor(root) {
-        this.root = root
+        this.root = root ?? null
     }
 
     /**
@@ -39,6 +50,45 @@ class OrderedBinaryTree {
      */
     insert(data) {
         let value = data.toString()
+        if (this.root === null) {
+            this.root = new BinaryTreeNode(value)
+        } else {
+            let probe = this.root
+            while (!probe.isLeaf()) {
+                if (value === probe.data) {
+                    return
+                } else if (value < probe.data) {
+                    if (probe.left === null) {
+                        probe.left = new BinaryTreeNode(value)
+                        break
+                    } else {
+                        probe = probe.left
+                    }
+                } else {
+                    if (probe.right === null) {
+                        probe.right = new BinaryTreeNode(value)
+                        break
+                    } else {
+                        probe = probe.right
+                    }
+                }
+            }
+            if (probe.isLeaf()) {
+                if (value === probe.data) {
+                    return
+                } else if (value < probe.data) {
+                    probe.left = new BinaryTreeNode(value)
+                } else {
+                    probe.right = new BinaryTreeNode(value)
+                }
+            }
+        }
+    }
+
+    print() {
+        if (this.root !== null) {
+            this.root.print()
+        }
     }
 }
 
