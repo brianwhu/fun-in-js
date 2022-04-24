@@ -20,6 +20,25 @@ class BinaryTreeNode {
         }
     }
 
+    insert(data) {
+        let value = data.toString()
+        if (value === this.data) {
+            return
+        } else if (value < this.data) {
+            if (this.left !== null) {
+                this.left.insert(value)
+            } else {
+                this.left = new BinaryTreeNode(value)
+            }
+        } else {
+            if (this.right !== null) {
+                this.right.insert(value)
+            } else {
+                this.right = new BinaryTreeNode(value)
+            }
+        }
+    }
+
     print() {
         if (this.left !== null) {
             this.left.print()
@@ -82,6 +101,14 @@ class OrderedBinaryTree {
                     probe.right = new BinaryTreeNode(value)
                 }
             }
+        }
+    }
+
+    insertData(data) {
+        if (this.root !== null) {
+            this.root.insert(data)
+        } else {
+            this.root = new BinaryTreeNode(data.toString())
         }
     }
 
