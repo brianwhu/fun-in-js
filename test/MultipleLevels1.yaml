@@ -1,0 +1,25 @@
+problems:
+  - Diabetes:
+      - medications:
+          - medicationsClasses:
+              - className:
+                  - associatedDrug:
+                      - name: asprin
+                        dose: 1
+                        strength: 500 mg
+                    associatedDrug2:
+                      - name: somethingElse
+                        dose: 1
+                        strength: 500 mg
+                className2:
+                  - associatedDrug:
+                      - name: asprin
+                        dose: 1
+                        strength: 500 mg
+                    associatedDrug2:
+                      - name: somethingElse
+                        dose: 1
+                        strength: 500 mg
+        labs:
+          - missing_field: missing_value
+
