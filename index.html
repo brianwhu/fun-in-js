@@ -11,6 +11,7 @@
   <link rel="icon" type="image/svg" href="images/J.svg" />
   <!-- Google Fonts -->
   <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+  <script type="text/javascript" src="projects/_contents.js"></script>
 </head>
 <body>
 
@@ -40,18 +41,17 @@
 </div>
 
 <script type="text/javascript">
-  let projects = [ "Examples", "CommonComponents", "ConnectFour", "Tetris", "ColorFlood", "Samples", "ScalableVectorGraphics", "StarSpangledBanner", "MagicBubbles", "TicTacToe", "GameOfLife" ];
-  let observers = projects.length;
+  let observers = project_list.length;
   let completed = {};
 
   let list = document.getElementById('list');
-  projects.forEach(project => {
+  project_list.forEach(project => {
     let source = `projects/${project}.js`;
     fetch(source).then(response => {
       completed[project] = response.ok;
       --observers;
 
-      if (observers === 0) projects.forEach(project => {
+      if (observers === 0) project_list.forEach(project => {
         let anchor = document.createElement("a");
         anchor.setAttribute("href", `playground.html?p=${project}`);
         anchor.classList.add("list-group-item", "list-group-item-action");
