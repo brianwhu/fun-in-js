@@ -53,6 +53,7 @@ function draw() {
     if (canvas.getContext) {
         const ctx = canvas.getContext('2d');
 
+        /*
         var grd = ctx.createLinearGradient(425, 425, 600, 600)
         grd.addColorStop(0, '#FA5858')
         grd.addColorStop(0.08, '#FAAC58')
@@ -66,11 +67,26 @@ function draw() {
         grd.addColorStop(0.72, '#AC58FA')
         grd.addColorStop(0.8, '#FA58F4')
         grd.addColorStop(0.88, '#FA58AC')
+        */
+
+        var grd = ctx.createRadialGradient(135, 60, 5, 135, 60, 130)
+        grd.addColorStop(0, '#8904B1')
+        grd.addColorStop(0.999999999999, '#ECF8E0')
 
         ctx.beginPath()
         ctx.fillStyle = grd
-        ctx.arc(500, 500, 100, 0, Math.PI * 2, true)
+        ctx.ellipse(100, 100, 50, 75, Math.PI / 4, 0, 2 * Math.PI)
         ctx.fill()
+        ctx.strokeStyle = grd
+        ctx.stroke()
+
+        ctx.beginPath()
+        ctx.globalAlpha = 0.2
+        ctx.fillStyle = 'white'
+        ctx.ellipse(135, 90, 12.5, 18.75, Math.PI / 4, 0, 2 * Math.PI)
+        ctx.fill()
+        ctx.strokeStyle = 'white'
+        ctx.stroke()
     }
   }
 
