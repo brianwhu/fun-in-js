@@ -55,45 +55,46 @@ function tower(ctx) {
     //roof
     ctx.fillStyle = '#e5545d'
     ctx.beginPath()
-    ctx.moveTo(917.5, 355)
-    ctx.lineTo(940, 260)
-    ctx.lineTo(940, 355)
+    ctx.moveTo(912.5, 355)
+    ctx.lineTo(935, 255)
+    ctx.lineTo(935, 355)
     ctx.fill()
     ctx.fillStyle = '#c5303c'
     ctx.beginPath()
-    ctx.moveTo(940, 260)
-    ctx.lineTo(962.5, 355)
-    ctx.lineTo(940, 355)
+    ctx.moveTo(935, 255)
+    ctx.lineTo(957.5, 355)
+    ctx.lineTo(935, 355)
     ctx.fill()
 
     //borders
     ctx.fillStyle = 'white'
-    ctx.fillRect(935, 265, 10, 3)
-    ctx.fillRect(937.5, 225, 5, 40)
+    ctx.fillRect(930, 260, 10, 3)
+    ctx.fillRect(932.5, 220, 5, 40)
     ctx.fillStyle = '#ffe3d6'
-    ctx.fillRect(915, 355, 50, 5)
+    ctx.fillRect(910, 355, 50, 5)
 
     //flag
     ctx.fillStyle = '#e5545d'
-    ctx.fillRect(942, 225, 70, 12)
+    ctx.fillRect(937, 220, 75, 15)
     ctx.fillStyle = '#c5303c'
     ctx.beginPath()
-    ctx.moveTo(977, 237)
-    ctx.lineTo(977+70, 237)
-    ctx.lineTo(977+70-10, 237+6)
-    ctx.lineTo(977+70, 237+12)
-    ctx.lineTo(977, 237+12)
+    ctx.moveTo(980, 235)
+    ctx.lineTo(980+75, 235)
+    ctx.lineTo(980+75-10, 235+7.5)
+    ctx.lineTo(980+75, 235+15)
+    ctx.lineTo(980, 235+15)
     ctx.fill()
 
     //tower
     ctx.fillStyle = '#c6b199'
-    ctx.fillRect(920, 360, 20, 80)
+    ctx.fillRect(915, 360, 20, 85)
     ctx.fillStyle = '#988172'
-    ctx.fillRect(940, 360, 20, 80)
+    ctx.fillRect(935, 360, 20, 85)
 
     ctx.fillStyle = '#606060'
-    window(ctx, 940, 390, 7, 22)
+    window(ctx, 935, 390, 7, 22)
 
+    /*
     //red thingy
     ctx.fillStyle = '#c5303c'
     ctx.fillRect(810, 440, 120, 40)
@@ -145,6 +146,34 @@ function tower(ctx) {
     //big
     ctx.fillStyle = '#d7cab6'
     ctx.fillRect(700, 590, 400, 400)
+    ctx.fillRect(620, 665, 80, 325)
+    ctx.fillRect(660, 640, 40, 25)
+
+    //more windows
+    ctx.fillStyle = '#eeeae0'
+    window(ctx, 975, 700, 77.5, 72.5)
+    window(ctx, 755, 700, 77.5, 72.5)
+    ctx.fillStyle = '#856e5e'
+    window(ctx, 975, 700, 60, 55)
+    window(ctx, 755, 700, 60, 55)
+
+    //rectangles (texture)
+    ctx.fillStyle = '#eeeae0'
+    ctx.fillRect(820, 610, 20, 25)
+    ctx.fillRect(845, 610, 40, 25)
+    ctx.fillRect(875, 640, 20, 25)
+    ctx.fillRect(1060, 615, 40, 25)
+    ctx.fillRect(1080, 645, 20, 25)
+    ctx.fillStyle = '#856e5e'
+    ctx.fillRect(832.5, 747.5, 40, 25)
+    ctx.fillRect(832.5, 717.5, 20, 25)
+    ctx.fillRect(877.5, 717.5, 20, 25)
+    ctx.fillRect(660, 615, 40, 25)
+    ctx.fillRect(620, 640, 40, 25)
+    ctx.fillRect(637.5, 747.5, 40, 25)
+    ctx.fillRect(657.5, 717.5, 20, 25)
+    */
+    
 }
 
 function window(ctx, x, y, r, l) {
@@ -153,6 +182,10 @@ function window(ctx, x, y, r, l) {
     ctx.arc(x, y, r, Math.PI, 0)
     ctx.fill()
     ctx.fillRect(x-r, y, r*2, l)
+}
+
+function urjfiejfejw(ctx, x, y) {
+
 }
 
 function draw() {
@@ -171,9 +204,9 @@ function draw() {
         cloud(ctx, 520, 435, 155)
         connect(ctx, 545, 420)
         cloud(ctx, 125, 495, 155)
-        cloud(ctx, 1180, 185, 155)
-        cloud(ctx, 1125, 260, 155)
-        connect(ctx, 1185, 245)
+        cloud(ctx, 1140, 205, 155)
+        cloud(ctx, 1085, 280, 155)
+        connect(ctx, 1145, 265)
         cloud(ctx, 1400, 585, 77.5)
 
         //tower
